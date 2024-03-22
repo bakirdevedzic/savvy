@@ -13,6 +13,9 @@ export default {
         "primary-gray": "#666666",
         "primary-white-2": "#f6f8fa",
       },
+      height: {
+        screen: "100dvh",
+      },
     },
   },
   plugins: [],

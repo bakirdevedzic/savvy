@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-function ProtectedRoute() {
+function ProtectedRoute({ children }) {
   const isAuth = true;
 
-  return isAuth ? <Outlet /> : null;
+  return isAuth ? children : null;
 }
 
 export default ProtectedRoute;
