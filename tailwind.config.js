@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         roboto: ["Roboto Mono", "monospace"],
+        almarai: ["Almarai", "sans-serif"],
       },
       colors: {
         "primary-blue": "#3248F2",
