@@ -9,10 +9,11 @@ import { FaHeart } from "react-icons/fa";
 import { FaRectangleList } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
 import { FaChartPie } from "react-icons/fa";
+import ProfileCard from "./ProfileCard";
 
 function Sidebar() {
   return (
-    <aside className="bg-white row-span-full col-[1/2] px-[1.5rem] py-[1.5rem] flex flex-col border-solid border-0 border-r border-slate-200">
+    <aside className="h-full bg-white row-span-full col-[1/2] px-[1.5rem] py-[1.5rem] flex flex-col border-solid border-0 border-r border-slate-200">
       <Logo />
       <nav>
         <NavListGroup>
@@ -23,7 +24,7 @@ function Sidebar() {
           />
         </NavListGroup>
         <NavListGroup>
-          <span className="font-poppins font-medium text-primary-black">
+          <span className="font-poppins font-medium text-primary-black text-[16px]">
             Financial Management
           </span>
           <NavLinkStyled
@@ -43,7 +44,7 @@ function Sidebar() {
           />
         </NavListGroup>
         <NavListGroup>
-          <span className="font-poppins font-medium text-primary-black">
+          <span className="font-poppins font-medium text-primary-black text-[16px]">
             Planning and Analysis
           </span>
           <NavLinkStyled
@@ -58,7 +59,7 @@ function Sidebar() {
           />
         </NavListGroup>
         <NavListGroup>
-          <span className="font-poppins font-medium text-primary-black">
+          <span className="font-poppins font-medium text-primary-black text-[16px]">
             Configuration and Tools
           </span>
           <NavLinkStyled
@@ -67,6 +68,8 @@ function Sidebar() {
             icon={<IoMdSettings className="w-20 h-6 object-cover" />}
           />
         </NavListGroup>
+
+        <ProfileCard />
       </nav>
     </aside>
   );
