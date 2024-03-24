@@ -17,6 +17,16 @@ export default {
       height: {
         screen: "100dvh",
       },
+      screens: {
+        xl: { max: "1380px" },
+        // => @media (max-width: 1535px) { ... }
+        //IZNAD 1025 IDE OBAVEZNI SIDEBAR
+        md: { max: "1025px" },
+        // => @media (max-width: 1025px) { ... }
+
+        sm: { max: "639px" },
+        // => @media (max-width: 639px) { ... }
+      },
     },
   },
   plugins: [],

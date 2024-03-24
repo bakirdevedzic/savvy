@@ -13,7 +13,7 @@ import ProfileCard from "./ProfileCard";
 
 function Sidebar() {
   return (
-    <aside className="h-full bg-white row-span-full col-[1/2] px-[1.5rem] py-[1.5rem] flex flex-col border-solid border-0 border-r border-slate-200">
+    <aside className="h-full bg-white row-span-full col-[1/2] px-[1.5rem] py-[1.5rem] flex flex-col border-solid border-0 border-r border-slate-200  fixed top-0 left-0 z-10 w-[18rem] overflow-y-auto">
       <Logo />
       <nav>
         <NavListGroup>
