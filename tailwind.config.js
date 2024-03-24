@@ -18,6 +18,7 @@ export default {
         screen: "100dvh",
       },
       screens: {
+        "2xl": { min: "1381px" },
         xl: { max: "1380px" },
         // => @media (max-width: 1535px) { ... }
         //IZNAD 1025 IDE OBAVEZNI SIDEBAR
