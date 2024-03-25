@@ -18,7 +18,7 @@ function AppLayout() {
         isLargerThan1025={isLargerThan1025}
         setShowSidebar={setShowSidebar}
       />
-      <main className="bg-primary-white-2 col-[2/3]  pt-[2.4rem] pl-[4.8rem] pr-[4.8rem] pb-[6.4rem] sm:pt-[1.6rem] sm:pl-[2.4rem] sm:pr-[2.4rem] md:pt-[1.6rem] md:pl-[2.4rem] md:pr-[2.4rem]">
+      <main className="bg-primary-white-2 col-[2/3]  pt-[2.4rem] pl-[4.8rem] pr-[4.8rem] pb-[6.4rem] sm:pt-[1.6rem] sm:pl-[2.4rem] sm:pr-[2.4rem] md:pt-[1.6rem] md:pl-[2.4rem] md:pr-[2.4rem] flex flex-col items-center">
         <Outlet />
       </main>
     </div>

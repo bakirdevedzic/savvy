@@ -1,5 +1,5 @@
 function Budget() {
-  return <div>Budget</div>;
+  return <div className="max-w-[1700px] w-[100%]">Budget</div>;
 }
 
 export default Budget;

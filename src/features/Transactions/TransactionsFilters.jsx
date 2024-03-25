@@ -1,6 +1,6 @@
 function TransactionsFilters() {
   return (
-    <div className="flex flex-cols justify-between items-center">
+    <div className="flex flex-cols justify-between items-center gap-3 h-[100%]">
       <div className="grid grid-cols-3 w-[300px] bg-primary-white-2 rounded-lg h-[70%]">
         <button className="text-almarai font-medium hover:bg-primary-blue hover:text-primary-white-2 rounded-l-lg border-2">
           All

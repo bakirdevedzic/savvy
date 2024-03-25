@@ -12,7 +12,7 @@ export default {
         "primary-blue": "#3248F2",
         "primary-black": "#171215",
         "primary-gray": "#666666",
-        "primary-white-2": "#f6f8fa",
+        "primary-white-2": "#ebf0f4",
       },
       height: {
         screen: "100dvh",
@@ -25,7 +25,7 @@ export default {
         md: { max: "1025px" },
         // => @media (max-width: 1025px) { ... }
 
-        sm: { max: "639px" },
+        sm: { max: "800px" },
         // => @media (max-width: 639px) { ... }
       },
     },
