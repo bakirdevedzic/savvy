@@ -1,6 +1,6 @@
 function TransactionsFilters() {
   return (
-    <div className="flex flex-cols justify-between items-center gap-3 h-[100%]">
+    <div className="flex flex-cols justify-between items-center gap-3 h-[55px] sm:w-[100%] sm:justify-center us:grid us:grid-rows-2 us:gap-3 us:h-auto us:justify-items-center us:items-center">
       <div className="grid grid-cols-3 w-[300px] bg-primary-white-2 rounded-lg h-[70%]">
         <button className="text-almarai font-medium hover:bg-primary-blue hover:text-primary-white-2 rounded-l-lg border-2">
           All
@@ -14,7 +14,7 @@ function TransactionsFilters() {
       </div>
 
       <input
-        className="mr-10 bg-primary-white-2 font-roboto font-bold h-[38px] rounded-md border-2"
+        className="mr-10 bg-primary-white-2 font-roboto font-bold h-[38px] rounded-md border-2 xl:w-[130px]"
         type="date"
         id="start"
         name="trip-start"
