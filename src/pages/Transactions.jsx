@@ -2,8 +2,16 @@ import TransactionsTable from "../features/Transactions/TransactionsTable";
 import TransactionsFilters from "../features/Transactions/TransactionsFilters";
 import Button from "../ui/Button";
 import { MdAddBox } from "react-icons/md";
+import Modal from "../ui/Modal";
+import { useState } from "react";
+import TransactionsForm from "../features/Transactions/TransactionsForm";
 
 function Transactions() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOnClose = () => {
+    setShowModal(false);
+  };
   return (
     <main className="grid grid-rows-[auto_1fr] mt-10 max-w-[1700px] w-[100%]">
       <div
@@ -11,7 +19,7 @@ function Transactions() {
       sm:grid sm:grid-rows-2 sm:gap-3 sm:w-[100%] sm:justify-center"
       >
         <div className="sm:w-full sm:flex sm:justify-center">
-          <Button type="base">
+          <Button type="base" onClick={() => setShowModal(true)}>
             <MdAddBox />
             Add new
           </Button>
@@ -19,6 +27,11 @@ function Transactions() {
         <TransactionsFilters />
       </div>
       <TransactionsTable />
+      <Modal
+        visible={showModal}
+        onClose={handleOnClose}
+        render={<TransactionsForm />}
+      />
     </main>
   );
 }
