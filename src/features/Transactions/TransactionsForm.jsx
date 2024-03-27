@@ -1,23 +1,23 @@
-import FormInput from "../../ui/FormInput";
 import FormRow from "../../ui/FormRow";
 
 function TransactionsForm() {
   return (
-    <form className="max-w-[400px]">
+    <form className="max-w-[400px] overflow-y-auto">
       <p className="text-2xl font-semibold font-almarai">Add new transaction</p>
 
       <FormRow label="Title*">
         <input
           type="text"
           placeholder="Name of transaction"
-          className="bg-slate-100 outline outline-1 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
+          className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
         />
       </FormRow>
 
       <FormRow label="Type*">
-        <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+        <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 w-[100%]">
           <input
             id="bordered-radio-1"
+            checked
             type="radio"
             value="INCOME"
             name="bordered-radio"
@@ -48,7 +48,7 @@ function TransactionsForm() {
           type="number"
           name="money"
           placeholder="Amount of money"
-          className="bg-slate-100 outline outline-1 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
+          className="bg-slate-100 outline outline-1 outline-gray-400  focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
         />
       </FormRow>
 
@@ -56,7 +56,7 @@ function TransactionsForm() {
         <textarea
           type="textarea"
           placeholder="Description of transaction"
-          className="bg-slate-100 outline outline-1 focus:outline-blue-500 rounded-lg h-24 w-72 p-2"
+          className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-24 w-72 p-2"
         />
       </FormRow>
 
@@ -64,7 +64,7 @@ function TransactionsForm() {
         <input
           type="date"
           placeholder="Date of transaction"
-          className="bg-slate-100 outline outline-1 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
+          className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
         />
       </FormRow>
     </form>
