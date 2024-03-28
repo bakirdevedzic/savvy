@@ -4,7 +4,9 @@ import FormRow from "../../ui/FormRow";
 import { IoAddCircle } from "react-icons/io5";
 
 function TransactionsForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+
+  const { errors } = formState;
 
   function onSubmit(data) {
     console.log(data);
@@ -22,12 +24,12 @@ function TransactionsForm() {
     >
       <p className="text-2xl font-semibold font-almarai">Add new transaction</p>
 
-      <FormRow label="Title*">
+      <FormRow label="Title*" error={errors?.title?.message}>
         <input
           type="text"
           placeholder="Name of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-          {...register("title", { required: "Title is  required" })}
+          {...register("title", { required: "Title is required!" })}
         />
       </FormRow>
 
@@ -35,7 +37,7 @@ function TransactionsForm() {
         <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 w-[100%]">
           <input
             id="type-1"
-            {...register("type", { required: "Type is required" })}
+            {...register("type", { required: "Type is required!" })}
             checked
             type="radio"
             defaultValue="INCOME"
@@ -51,7 +53,7 @@ function TransactionsForm() {
           <input
             checked
             id="type-2"
-            {...register("type", { required: "Type is required" })}
+            {...register("type", { required: "Type is required!" })}
             type="radio"
             defaultValue="EXPENSE"
             name="type"
@@ -63,15 +65,15 @@ function TransactionsForm() {
         </div>
       </FormRow>
 
-      <FormRow label="Amount*">
+      <FormRow label="Amount*" error={errors?.amount?.message}>
         <input
           type="number"
           name="money"
           {...register("amount", {
-            required: "Amount is required",
+            required: "Amount is required!",
             min: {
               value: 1,
-              message: "Amount should be at least 1",
+              message: "Amount should be at least 1!",
             },
           })}
           placeholder="Amount of money"
@@ -88,10 +90,10 @@ function TransactionsForm() {
         />
       </FormRow>
 
-      <FormRow label="Date*">
+      <FormRow label="Date*" error={errors?.date?.message}>
         <input
           type="date"
-          {...register("date", { required: "Date is required" })}
+          {...register("date", { required: "Date is required!" })}
           placeholder="Date of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
         />
