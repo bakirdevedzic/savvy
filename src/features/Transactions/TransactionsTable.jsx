@@ -1,4 +1,4 @@
-import TableRow from "../../ui/TableRow";
+import TableRow from "./TableRow";
 
 function TransactionsTable() {
   const data = {

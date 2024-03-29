@@ -1,6 +1,6 @@
 function InfoCard1({ label, amount, color }) {
   return (
-    <div className="flex flex-col w-[250px] bg-white rounded-lg shadow-xl p-4 gap-3">
+    <div className="flex flex-col w-[250px] h-[120px] bg-white rounded-lg shadow-xl p-4 gap-3">
       <div className="font-almarai font-bold text-slate-400">{label}</div>
       <div
         className={

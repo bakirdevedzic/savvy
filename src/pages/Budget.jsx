@@ -12,8 +12,8 @@ function Budget() {
     setShowModal(false);
   };
   return (
-    <div className="max-w-[1700px] w-[100%] grid-rows-[120px_1fr_1fr] grid gap-3">
-      <div className="grid grid-cols-4">
+    <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
+      <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
         <InfoCard label="Total amount" amount="$45,6845" />
         <InfoCard label="Budget for this month" amount="$10,000" />
         <InfoCard label="Spent this month" amount="$6,450" color="red" />
@@ -23,14 +23,14 @@ function Budget() {
           color="green"
         />
       </div>
-      <div>
+      <div className="h-[100%]">
         <Button type="base" onClick={() => setShowModal(true)}>
           <MdAddBox />
           Add new budget
         </Button>
       </div>
-      <div>
-        <p>History</p>
+      <div className="overflow-auto">
+        <p className="text-poppins text-2xl font-bold">History</p>
         <BudgetTable />
       </div>
       <Modal visible={showModal} onClose={handleOnClose} />
