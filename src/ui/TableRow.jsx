@@ -1,7 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import { IoOpen } from "react-icons/io5";
 
-function TransactionTableRow({ data }) {
+function TableRow({ data }) {
   return (
     <tr className="odd:bg-white even:bg-gray-200">
       <td className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap">
@@ -40,4 +40,4 @@ function TransactionTableRow({ data }) {
   );
 }
 
-export default TransactionTableRow;
+export default TableRow;
