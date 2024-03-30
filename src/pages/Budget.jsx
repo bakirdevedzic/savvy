@@ -5,6 +5,7 @@ import BudgetTable from "../features/Budget/BudgetTable.jsx";
 
 import { useState } from "react";
 import Modal from "../ui/Modal";
+import BudgetForm from "../features/Budget/BudgetForm.jsx";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +15,7 @@ function Budget() {
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
-        <InfoCard label="Total amount" amount="$45,6845" />
+        <InfoCard label="Total amount" amount="$45,685" />
         <InfoCard label="Budget for this month" amount="$10,000" />
         <InfoCard label="Spent this month" amount="$6,450" color="red" />
         <InfoCard
@@ -33,7 +34,11 @@ function Budget() {
         <p className="text-poppins text-2xl font-bold">History</p>
         <BudgetTable />
       </div>
-      <Modal visible={showModal} onClose={handleOnClose} />
+      <Modal
+        visible={showModal}
+        onClose={handleOnClose}
+        render={<BudgetForm />}
+      />
     </div>
   );
 }

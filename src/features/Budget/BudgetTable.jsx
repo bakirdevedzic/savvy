@@ -15,7 +15,7 @@ function BudgetTable() {
   };
   return (
     <div className="mt-5 rounded-lg shadow overflow-auto min-w-max inline-block">
-      <table className="border min-w-max ">
+      <table className="border ">
         <thead className="bg-primary-blue">
           <tr>
             <th className="w-24 p-3 text-poppins text-sm font-bold text-primary-white-2 tracking-wide border-r">
