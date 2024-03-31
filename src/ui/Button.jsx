@@ -4,6 +4,7 @@ function Button({ onClick, type, children, icon }) {
 
   const styles = {
     base: base,
+    small: base + "w-[130px] max-h-[60px] text-sm px-2 py-1.5 gap-2",
   };
 
   if (onClick)
