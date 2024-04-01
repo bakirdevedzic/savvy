@@ -22,10 +22,18 @@ function Categories() {
 
       <div>
         <h1 className="text-3xl font-bold">Income</h1>
+        <p className="text-sm text-gray-400 font-almarai font-semibold">
+          &apos;Transactions&apos; and &apos;Amount&apos; are calculated based
+          on the transactions that occurred within the last 30 days.
+        </p>
         <IncomeCategoriesTable />
       </div>
       <div>
         <h1 className="text-3xl font-bold">Expense</h1>
+        <p className="text-sm text-gray-400 font-almarai font-semibold">
+          &apos;Transactions&apos; and &apos;Amount&apos; are calculated based
+          on the transactions that occurred within the last 30 days.
+        </p>
         <ExpenseCategoriesTable />
       </div>
       <Modal visible={showModal} onClose={handleOnClose} />
