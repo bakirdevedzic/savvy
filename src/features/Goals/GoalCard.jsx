@@ -3,6 +3,8 @@ import Modal from "../../ui/Modal";
 import { useState } from "react";
 import { IoCheckbox } from "react-icons/io5";
 import { GrUpdate } from "react-icons/gr";
+import GoalForm from "./GoalForm";
+import ConfirmationTab from "../../ui/ConfirmationTab";
 
 function GoalCard() {
   const [showModal, setShowModal] = useState(false);
@@ -22,15 +24,15 @@ function GoalCard() {
     setAction(null);
   };
 
-  //   const renderModalContent = () => {
-  //     if (action === "update") {
-  //       return <UpdateGoalForm />;
-  //     } else if (action === "finish") {
-  //       return <FinishGoalConfirm />;
-  //     }
-  //     // Default content or no content if action is not set
-  //     return null;
-  //   };
+  const renderModalContent = () => {
+    if (action === "update") {
+      return <GoalForm />;
+    } else if (action === "finish") {
+      return <ConfirmationTab onClick={setShowModal} />;
+    }
+    // Default content or no content if action is not set
+    return null;
+  };
 
   return (
     <div className="grid grid-rows  bg-white rounded-lg border-2 border-solid shadow-xl p-5 max-w-max">
@@ -66,7 +68,11 @@ function GoalCard() {
           </div>
         </div>
       </div>
-      <Modal visible={showModal} onClose={handleOnClose} />
+      <Modal
+        visible={showModal}
+        onClose={handleOnClose}
+        render={renderModalContent()}
+      />
     </div>
   );
 }

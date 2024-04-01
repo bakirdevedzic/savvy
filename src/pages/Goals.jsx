@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import { useState } from "react";
 import Modal from "../ui/Modal";
 import GoalCard from "../features/Goals/GoalCard";
+import GoalForm from "../features/Goals/GoalForm";
 
 function Goals() {
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,11 @@ function Goals() {
       </div>
       <p className="text-poppins text-2xl font-bold">History</p>
       <GoalsTable />
-      <Modal visible={showModal} onClose={handleOnClose} />
+      <Modal
+        visible={showModal}
+        onClose={handleOnClose}
+        render={<GoalForm />}
+      />
     </div>
   );
 }
