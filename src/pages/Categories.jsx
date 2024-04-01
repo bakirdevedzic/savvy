@@ -4,6 +4,7 @@ import Modal from "../ui/Modal";
 import { useState } from "react";
 import IncomeCategoriesTable from "../features/Categories/IncomeCategoriesTable";
 import ExpenseCategoriesTable from "../features/Categories/ExpenseCategoriesTable";
+import CategoryForm from "../features/Categories/CategoryForm";
 
 function Categories() {
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +37,11 @@ function Categories() {
         </p>
         <ExpenseCategoriesTable />
       </div>
-      <Modal visible={showModal} onClose={handleOnClose} />
+      <Modal
+        visible={showModal}
+        onClose={handleOnClose}
+        render={<CategoryForm />}
+      />
     </div>
   );
 }

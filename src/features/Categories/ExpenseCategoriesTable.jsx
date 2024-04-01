@@ -31,6 +31,7 @@ function ExpenseCategoriesTable() {
     categoryName: "Books",
     transactions: 2,
     amount: 60,
+    operations: "Edit | Delete",
   };
   return <Table headData={headData} bodyData={[data, data2, data3]} />;
 }
