@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
 import FormRow from "../ui/FormRow";
-import Button from "../ui/Button";
-import { IoAddCircle } from "react-icons/io5";
 
 function Settings() {
   const { register, handleSubmit, formState } = useForm();

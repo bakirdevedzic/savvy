@@ -6,11 +6,34 @@ import BudgetTable from "../features/Budget/BudgetTable.jsx";
 import { useState } from "react";
 import Modal from "../ui/Modal";
 import BudgetForm from "../features/Budget/BudgetForm.jsx";
+import UpdateBudgetForm from "../features/Budget/UpdateBudgetForm.jsx";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
+  const [action, setAction] = useState(null);
+
+  function handleAddNewBudget() {
+    setShowModal(true);
+    setAction("add");
+  }
+
+  function handleUpdateBudget() {
+    setShowModal(true);
+    setAction("update");
+  }
   const handleOnClose = () => {
     setShowModal(false);
+    setAction(null);
+  };
+
+  const renderModalContent = () => {
+    if (action === "add") {
+      return <BudgetForm />;
+    } else if (action === "update") {
+      return <UpdateBudgetForm />;
+    }
+
+    return null;
   };
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
@@ -24,11 +47,19 @@ function Budget() {
           color="green"
         />
       </div>
-      <div className="h-[100%]">
-        <Button type="base" onClick={() => setShowModal(true)}>
-          <MdAddBox />
-          Add new budget
-        </Button>
+      <div className="h-[100%] flex flex-row gap-3 us:flex-col">
+        <div>
+          <Button type="base" onClick={() => handleAddNewBudget()}>
+            <MdAddBox />
+            Add new budget
+          </Button>
+        </div>
+        <div>
+          <Button type="base" onClick={() => handleUpdateBudget()}>
+            <MdAddBox />
+            Edit budget
+          </Button>
+        </div>
       </div>
       <div className="overflow-auto">
         <p className="text-poppins text-2xl font-bold">History</p>
@@ -37,7 +68,7 @@ function Budget() {
       <Modal
         visible={showModal}
         onClose={handleOnClose}
-        render={<BudgetForm />}
+        render={renderModalContent()}
       />
     </div>
   );

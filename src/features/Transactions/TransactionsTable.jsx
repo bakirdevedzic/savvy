@@ -2,8 +2,8 @@ import Table from "../../ui/Table/Table";
 
 function TransactionsTable() {
   const headData = [
-    { title: "Title", width: 12, type: "text", key: "title" },
-    { title: "Description", width: 8, type: "text", key: "description" },
+    { title: "Title", width: 10, type: "text", key: "title" },
+    { title: "Description", width: 12, type: "text", key: "description" },
     { title: "Amount", width: 8, type: "number", key: "amount" },
     { title: "Type", width: 8, type: "badge", key: "type" },
     { title: "Date", width: 8, type: "date", key: "date" },
