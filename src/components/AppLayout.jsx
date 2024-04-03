@@ -10,7 +10,7 @@ function AppLayout() {
   const isLargerThan1025 = useMediaQuery({ minWidth: 1026 });
 
   return (
-    <div className="grid grid-cols-[18rem,1fr] h-screen md:flex sm:flex md:flex-col sm:flex-col">
+    <div className="grid grid-cols-[18rem,1fr] h-[calc(100dvh)] md:flex sm:flex md:flex-col sm:flex-col">
       <Header setShowSidebar={setShowSidebar} />
       <Sidebar
         showSidebar={showSidebar}
