@@ -31,7 +31,10 @@ function renderCell(data, data2) {
       );
     case "badge":
       return (
-        <td className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap justify-center flex">
+        <td
+          className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap justify-center flex"
+          key={data2.key}
+        >
           <span
             className={
               data[data2.key] === "Income"

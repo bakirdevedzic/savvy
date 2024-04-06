@@ -3,7 +3,7 @@ import Modal from "../../ui/Modal";
 import { useState } from "react";
 import { IoCheckbox } from "react-icons/io5";
 import { GrUpdate } from "react-icons/gr";
-import GoalForm from "./GoalForm";
+import GoalUpdateForm from "./GoalUpdateForm";
 import ConfirmationTab from "../../ui/ConfirmationTab";
 
 function GoalCard() {
@@ -26,7 +26,7 @@ function GoalCard() {
 
   const renderModalContent = () => {
     if (action === "update") {
-      return <GoalForm />;
+      return <GoalUpdateForm />;
     } else if (action === "finish") {
       return <ConfirmationTab onClick={setShowModal} />;
     }
