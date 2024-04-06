@@ -7,7 +7,7 @@ function IncomeCategoriesTable() {
     {
       title: "Amount",
       width: 24,
-      type: "number",
+      type: "money",
       key: "amount",
     },
     { title: "Operations", width: 8, type: "text", key: "operations" },

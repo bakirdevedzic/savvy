@@ -5,6 +5,7 @@ import { IoCheckbox } from "react-icons/io5";
 import { GrUpdate } from "react-icons/gr";
 import GoalUpdateForm from "./GoalUpdateForm";
 import ConfirmationTab from "../../ui/ConfirmationTab";
+import { formatCurrency } from "../../utils/helpers";
 
 function GoalCard() {
   const [showModal, setShowModal] = useState(false);
@@ -63,8 +64,8 @@ function GoalCard() {
           </div>
 
           <div className="flex flex-rows justify-between">
-            <p>$450</p>
-            <p>$800</p>
+            <p>{formatCurrency(450)}</p>
+            <p>{formatCurrency(800)}</p>
           </div>
         </div>
       </div>

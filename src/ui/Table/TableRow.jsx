@@ -1,3 +1,5 @@
+import { formatCurrency } from "../../utils/helpers";
+
 function renderCell(data, data2) {
   switch (data2.type) {
     case "text":
@@ -20,6 +22,15 @@ function renderCell(data, data2) {
           {data[data2.key]}
         </td>
       );
+    case "money":
+      return (
+        <td
+          key={data2.key}
+          className="p-3 font-poppins font-semibold text-sm text-gray-700 whitespace-nowrap"
+        >
+          {formatCurrency(data[data2.key])}
+        </td>
+      );
     case "date":
       return (
         <td
@@ -37,7 +48,7 @@ function renderCell(data, data2) {
         >
           <span
             className={
-              data[data2.key] === "Income"
+              data[data2.key] === "INCOME"
                 ? "inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
                 : "inline-flex items-center justify-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
             }
