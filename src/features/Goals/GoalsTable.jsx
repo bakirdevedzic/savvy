@@ -3,8 +3,8 @@ import Table from "../../ui/Table/Table";
 function GoalsTable() {
   const headData = [
     { title: "Name", width: 72, type: "text", key: "name" },
-    { title: "Goal amount", width: 24, type: "number", key: "goalAmount" },
-    { title: "Amount saved", width: 24, type: "number", key: "amountSaved" },
+    { title: "Goal amount", width: 24, type: "money", key: "goalAmount" },
+    { title: "Amount saved", width: 24, type: "money", key: "amountSaved" },
     { title: "Start date", width: 24, type: "date", key: "startDate" },
     { title: "Finished date", width: 24, type: "date", key: "finishedDate" },
     { title: "Operations", width: 12, type: "text", key: "operations" },

@@ -26,7 +26,7 @@ export const fetchTransactionsAsync = createAsyncThunk(
 // );
 
 const initialState = {
-  transactions: [],
+  transactions: null,
   status: "idle",
   error: null,
 };

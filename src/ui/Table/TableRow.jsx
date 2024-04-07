@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency, formatMonth } from "../../utils/helpers";
 
 function renderCell(data, data2) {
   switch (data2.type) {
@@ -38,6 +38,15 @@ function renderCell(data, data2) {
           className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap"
         >
           {data[data2.key]}
+        </td>
+      );
+    case "month":
+      return (
+        <td
+          key={data2.key}
+          className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap"
+        >
+          {formatMonth(data[data2.key])}
         </td>
       );
     case "badge":

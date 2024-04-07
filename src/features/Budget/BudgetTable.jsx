@@ -1,11 +1,11 @@
 import Table from "../../ui/Table/Table";
 
-function BudgetTable() {
+function BudgetTable({ budgets }) {
   const headData = [
-    { title: "Month", width: 24, type: "text", key: "month" },
-    { title: "Planned", width: 24, type: "money", key: "planned" },
-    { title: "Spent", width: 24, type: "money", key: "spent" },
-    { title: "Saved", width: 24, type: "money", key: "saved" },
+    { title: "Month", width: 24, type: "month", key: "month" },
+    { title: "Planned", width: 24, type: "money", key: "planned_amount" },
+    { title: "Spent", width: 24, type: "money", key: "spent_amount" },
+    { title: "Saved", width: 24, type: "money", key: "saved_amount" },
   ];
   const data = {
     id: 1,
@@ -28,7 +28,7 @@ function BudgetTable() {
     spent: 9000,
     saved: 1000,
   };
-  return <Table headData={headData} bodyData={[data, data2, data3]} />;
+  return <Table headData={headData} bodyData={budgets} />;
 }
 
 export default BudgetTable;

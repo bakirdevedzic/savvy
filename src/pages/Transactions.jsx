@@ -21,10 +21,6 @@ function Transactions() {
   const status = useSelector((state) => state.transactions.status);
   const error = useSelector((state) => state.transactions.error);
 
-  useEffect(() => {
-    dispatch(fetchTransactionsAsync());
-  }, [dispatch]);
-
   if (status === "loading") {
     return <Spinner />;
   }

@@ -1,13 +1,28 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../ui/Sidebar";
 import Header from "../ui/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTransactionsAsync,
+  getTransactions,
+} from "../features/Transactions/transactionsSlice";
+import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);
   const isSmallOrEqual1025 = useMediaQuery({ maxWidth: 1025 });
   const isLargerThan1025 = useMediaQuery({ minWidth: 1026 });
+
+  const dispatch = useDispatch();
+  const transactions = useSelector(getTransactions);
+  useEffect(() => {
+    if (!transactions) {
+      dispatch(fetchTransactionsAsync());
+      dispatch(fetchBudgetsAsync());
+    }
+  }, [dispatch, transactions]);
 
   return (
     <div className="grid grid-cols-[18rem,1fr] h-[calc(100dvh)] md:flex sm:flex md:flex-col sm:flex-col">

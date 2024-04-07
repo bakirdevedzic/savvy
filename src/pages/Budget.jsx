@@ -7,10 +7,31 @@ import { useState } from "react";
 import Modal from "../ui/Modal";
 import BudgetForm from "../features/Budget/BudgetForm.jsx";
 import UpdateBudgetForm from "../features/Budget/UpdateBudgetForm.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getBudgets,
+  getCurrentBudget,
+} from "../features/Budget/budgetSlice.js";
+import Spinner from "../ui/Spinner.jsx";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
   const [action, setAction] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const budgets = useSelector(getBudgets);
+  const status = useSelector((state) => state.budgets.status);
+  const error = useSelector((state) => state.budgets.error);
+  const currentBudget = useSelector(getCurrentBudget);
+
+  if (status === "loading") {
+    return <Spinner />;
+  }
+
+  if (status === "failed") {
+    return <div>Error: {error}</div>;
+  }
 
   function handleAddNewBudget() {
     setShowModal(true);
@@ -38,12 +59,12 @@ function Budget() {
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
-        <InfoCard label="Total amount" amount="$45,685" />
-        <InfoCard label="Budget for this month" amount="$10,000" />
-        <InfoCard label="Spent this month" amount="$6,450" color="red" />
+        <InfoCard label="Total amount" amount={45685} />
+        <InfoCard label="Budget for this month" amount={currentBudget} />
+        <InfoCard label="Spent this month" amount={6450} color="red" />
         <InfoCard
           label="Remaining for this month"
-          amount="$3,550"
+          amount={3570}
           color="green"
         />
       </div>
@@ -62,8 +83,10 @@ function Budget() {
         </div>
       </div>
       <div className="overflow-auto">
-        <p className="text-poppins text-2xl font-bold">History</p>
-        <BudgetTable />
+        <p className="text-poppins text-2xl font-bold">
+          Old and future budgets
+        </p>
+        <BudgetTable budgets={budgets} />
       </div>
       <Modal
         visible={showModal}
