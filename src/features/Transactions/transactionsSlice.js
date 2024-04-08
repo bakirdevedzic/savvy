@@ -13,7 +13,7 @@ export const fetchTransactionsAsync = createAsyncThunk(
 //   "transactions/addTransaction",
 //   async (newTransaction) => {
 //     const response = await addTransaction(newTransaction); // API call to add a new transaction
-//     return response.data;
+//     return response;
 //   }
 // );
 
@@ -21,7 +21,7 @@ export const fetchTransactionsAsync = createAsyncThunk(
 //   "transactions/editTransaction",
 //   async (editedTransaction) => {
 //     const response = await editTransactionApi(editedTransaction); // API call to edit a transaction
-//     return response.data;
+//     return response;
 //   }
 // );
 

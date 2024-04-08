@@ -5,9 +5,17 @@ import { useState } from "react";
 import IncomeCategoriesTable from "../features/Categories/IncomeCategoriesTable";
 import ExpenseCategoriesTable from "../features/Categories/ExpenseCategoriesTable";
 import CategoryForm from "../features/Categories/CategoryForm";
+import { useSelector } from "react-redux";
+import {
+  getExpenseCategories,
+  getIncomeCategories,
+} from "../features/Categories/categoriesSlice";
 
 function Categories() {
   const [showModal, setShowModal] = useState(false);
+
+  const incomeCategories = useSelector(getIncomeCategories);
+  const expenseCategories = useSelector(getExpenseCategories);
 
   const handleOnClose = () => {
     setShowModal(false);
@@ -27,7 +35,7 @@ function Categories() {
           &apos;Transactions&apos; and &apos;Amount&apos; are calculated based
           on the transactions that occurred within the last 30 days.
         </div>
-        <IncomeCategoriesTable />
+        <IncomeCategoriesTable categories={incomeCategories} />
       </div>
 
       <div className="overflow-auto">
@@ -36,7 +44,7 @@ function Categories() {
           &apos;Transactions&apos; and &apos;Amount&apos; are calculated based
           on the transactions that occurred within the last 30 days.
         </div>
-        <ExpenseCategoriesTable />
+        <ExpenseCategoriesTable categories={expenseCategories} />
       </div>
 
       <Modal

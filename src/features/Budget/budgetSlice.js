@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchBudgets } from "../../services/apiBudget";
-import { extractYearMonth } from "../../utils/helpers";
 
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
@@ -14,7 +13,7 @@ export const fetchBudgetsAsync = createAsyncThunk(
 //   "budgets/addBudget",
 //   async (newBudget) => {
 //     const response = await addBudget(newBudget); // API call to add a new budget
-//     return response.data;
+//     return response;
 //   }
 // );
 
@@ -22,7 +21,7 @@ export const fetchBudgetsAsync = createAsyncThunk(
 //   "budgets/editBudget",
 //   async (editedBudget) => {
 //     const response = await editBudgetApi(editedBudget); // API call to edit a budget
-//     return response.data;
+//     return response;
 //   }
 // );
 const initialState = {
@@ -46,10 +45,6 @@ const budgetsSlice = createSlice({
         state.budgets = action.payload;
 
         const today = new Date();
-        const currentMonth = today.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "2-digit",
-        });
 
         const currentBudget = state.budgets.find((budget) => {
           const budgetDate = new Date(budget.month);
@@ -62,9 +57,6 @@ const budgetsSlice = createSlice({
           state.currentBudget = currentBudget.planned_amount;
         } else {
           state.currentBudget = null;
-          // Handle scenario where no budget exists for the current month (optional)
-          console.warn("No budget found for current month:", currentMonth);
-          // You might want to set currentBudget to 0 or some default value here
         }
       })
       .addCase(fetchBudgetsAsync.rejected, (state, action) => {

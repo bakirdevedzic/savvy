@@ -9,6 +9,7 @@ import {
   getTransactions,
 } from "../features/Transactions/transactionsSlice";
 import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
+import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -21,6 +22,7 @@ function AppLayout() {
     if (!transactions) {
       dispatch(fetchTransactionsAsync());
       dispatch(fetchBudgetsAsync());
+      dispatch(fetchCategoriesAsync());
     }
   }, [dispatch, transactions]);
 
