@@ -6,10 +6,7 @@ import Modal from "../ui/Modal";
 import { useEffect, useState } from "react";
 import TransactionsForm from "../features/Transactions/TransactionsForm";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchTransactionsAsync,
-  getTransactions,
-} from "../features/Transactions/transactionsSlice";
+import { getTransactions } from "../features/Transactions/transactionsSlice";
 import Spinner from "../ui/Spinner";
 
 function Transactions() {
@@ -50,7 +47,7 @@ function Transactions() {
       <Modal
         visible={showModal}
         onClose={handleOnClose}
-        render={<TransactionsForm />}
+        render={<TransactionsForm onClose={handleOnClose} />}
       />
     </main>
   );

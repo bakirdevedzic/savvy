@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchTransactions } from "../../services/apiTransactions";
+import {
+  addTransaction,
+  fetchTransactions,
+} from "../../services/apiTransactions";
+import toast from "react-hot-toast";
 
 export const fetchTransactionsAsync = createAsyncThunk(
   "transaction/fetchTransactions",
@@ -9,13 +13,13 @@ export const fetchTransactionsAsync = createAsyncThunk(
   }
 );
 
-// export const addTransactionAsync = createAsyncThunk(
-//   "transactions/addTransaction",
-//   async (newTransaction) => {
-//     const response = await addTransaction(newTransaction); // API call to add a new transaction
-//     return response;
-//   }
-// );
+export const addTransactionAsync = createAsyncThunk(
+  "transactions/addTransaction",
+  async (newTransaction) => {
+    const response = await addTransaction(newTransaction); // API call to add a new transaction
+    return response;
+  }
+);
 
 // export const editTransactionAsync = createAsyncThunk(
 //   "transactions/editTransaction",
@@ -47,18 +51,20 @@ const transactionsSlice = createSlice({
       .addCase(fetchTransactionsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addTransactionAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addTransactionAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        toast.success("Transaction added successfully");
+        state.transactions.push(action.payload);
+      })
+      .addCase(addTransactionAsync.rejected, (state, action) => {
+        state.status = "failed";
+        toast.error(action.error.message);
+        state.error = action.error.message;
       });
-    //   .addCase(addTransactionAsync.pending, (state) => {
-    //     state.status = "loading";
-    //   })
-    //   .addCase(addTransactionAsync.fulfilled, (state, action) => {
-    //     state.status = "succeeded";
-    //     state.transactions.push(action.payload);
-    //   })
-    //   .addCase(addTransactionAsync.rejected, (state, action) => {
-    //     state.status = "failed";
-    //     state.error = action.error.message;
-    //   })
     //   .addCase(editTransactionAsync.pending, (state) => {
     //     state.status = "loading";
     //   })

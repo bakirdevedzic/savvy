@@ -2,19 +2,23 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { IoAddCircle } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { addTransactionAsync } from "./transactionsSlice";
 
-function TransactionsForm() {
+function TransactionsForm({ onClose }) {
   const { register, handleSubmit, formState } = useForm();
 
   const { errors } = formState;
 
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.transactions.status);
   function onSubmit(data) {
-    console.log(data);
+    console.log(status);
+    dispatch(addTransactionAsync(data));
+    onClose();
   }
 
-  function onError(errors) {
-    console.log(errors);
-  }
+  function onError(errors) {}
 
   return (
     <form
@@ -24,12 +28,12 @@ function TransactionsForm() {
     >
       <p className="text-2xl font-semibold font-almarai">Add new transaction</p>
 
-      <FormRow label="Title*" error={errors?.title?.message}>
+      <FormRow label="Name*" error={errors?.name?.message}>
         <input
           type="text"
           placeholder="Name of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-          {...register("title", { required: "Title is required!" })}
+          {...register("name", { required: "Name is required!" })}
         />
       </FormRow>
 

@@ -18,12 +18,12 @@ function Table({ headData, bodyData }) {
         </thead>
         <tbody className="divide-y divide-gray-300">
           {bodyData ? (
-            bodyData.map((data) => {
-              return <TableRow data={data} key={data.id} headData={headData} />;
+            bodyData.map((data, i) => {
+              return <TableRow data={data} key={i} headData={headData} />;
             })
           ) : (
             <tr className="p-3 flex  text-2xl text-gray-600 bg-primary-white-2">
-              No data to show!
+              <td>No data to show!</td>
             </tr>
           )}
         </tbody>

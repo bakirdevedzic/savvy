@@ -9,3 +9,15 @@ export async function fetchTransactions() {
 
   return data;
 }
+
+export async function addTransaction(newTransaction) {
+  const { data, error } = await supabase
+    .from("transactions")
+    .insert([newTransaction]);
+  console.log(data);
+  if (error) {
+    throw new Error("Error uploading transaction");
+  }
+
+  return newTransaction;
+}
