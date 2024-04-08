@@ -10,6 +10,7 @@ import {
 } from "../features/Transactions/transactionsSlice";
 import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
+import { fetchGoalsAsync } from "../features/Goals/goalsSlice";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -23,6 +24,7 @@ function AppLayout() {
       dispatch(fetchTransactionsAsync());
       dispatch(fetchBudgetsAsync());
       dispatch(fetchCategoriesAsync());
+      dispatch(fetchGoalsAsync());
     }
   }, [dispatch, transactions]);
 

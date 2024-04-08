@@ -7,7 +7,7 @@ import GoalUpdateForm from "./GoalUpdateForm";
 import ConfirmationTab from "../../ui/ConfirmationTab";
 import { formatCurrency } from "../../utils/helpers";
 
-function GoalCard() {
+function GoalCard({ data }) {
   const [showModal, setShowModal] = useState(false);
   const [action, setAction] = useState(null);
 
@@ -31,7 +31,7 @@ function GoalCard() {
     } else if (action === "finish") {
       return <ConfirmationTab onClick={setShowModal} />;
     }
-    // Default content or no content if action is not set
+
     return null;
   };
 
@@ -40,7 +40,7 @@ function GoalCard() {
       <div className="grid grid-cols-[auto_auto] w-[100%] mb-3 us:flex us:flex-col us:align-middle us:m-auto ">
         <div className="justify-start">
           <p className="text-base font-poppins font-bold w-[100%] text-gray-700">
-            New Iphone 15 New Iphone 15 New Iphone 15 New Iphone 15
+            {data.name}
           </p>
         </div>
 
@@ -64,8 +64,8 @@ function GoalCard() {
           </div>
 
           <div className="flex flex-rows justify-between">
-            <p>{formatCurrency(450)}</p>
-            <p>{formatCurrency(800)}</p>
+            <p>{formatCurrency(data.saved_amount)}</p>
+            <p>{formatCurrency(data.goal_amount)}</p>
           </div>
         </div>
       </div>
