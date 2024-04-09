@@ -58,7 +58,7 @@ const transactionsSlice = createSlice({
       .addCase(addTransactionAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Transaction added successfully");
-        state.transactions.push(action.payload);
+        state.transactions.unshift(action.payload[0]);
       })
       .addCase(addTransactionAsync.rejected, (state, action) => {
         state.status = "failed";

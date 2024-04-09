@@ -10,7 +10,7 @@ function ExpenseCategoriesTable({ categories }) {
       type: "money",
       key: "amount",
     },
-    { title: "Operations", width: 8, type: "text", key: "operations" },
+    { title: "Operations", width: 8, type: "operations", key: "operations" },
   ];
 
   return <Table headData={headData} bodyData={categories} />;

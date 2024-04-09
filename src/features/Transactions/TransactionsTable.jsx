@@ -8,7 +8,7 @@ function TransactionsTable({ transactions }) {
     { title: "Type", width: 10, type: "badge", key: "type" },
     { title: "Category", width: 10, type: "text", key: "category" },
     { title: "Date", width: 10, type: "date", key: "date" },
-    { title: "Operations", width: 10, type: "text", key: "operations" },
+    { title: "Operations", width: 10, type: "operations", key: "operations" },
   ];
 
   return <Table headData={headData} bodyData={transactions} />;

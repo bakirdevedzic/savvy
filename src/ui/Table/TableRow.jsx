@@ -1,4 +1,5 @@
 import { formatCurrency, formatMonth } from "../../utils/helpers";
+import Operations from "../Operations";
 
 function renderCell(data, data2) {
   switch (data2.type) {
@@ -64,6 +65,15 @@ function renderCell(data, data2) {
           >
             {data[data2.key]}
           </span>
+        </td>
+      );
+    case "operations":
+      return (
+        <td
+          className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap justify-center flex"
+          key={data2.key}
+        >
+          <Operations />
         </td>
       );
 

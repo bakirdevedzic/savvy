@@ -7,7 +7,7 @@ function GoalsTable({ goals }) {
     { title: "Amount saved", width: 24, type: "money", key: "saved_amount" },
     { title: "Start date", width: 24, type: "date", key: "start_date" },
     { title: "Finished date", width: 24, type: "date", key: "finished_date" },
-    { title: "Operations", width: 12, type: "text", key: "operations" },
+    { title: "Operations", width: 12, type: "operations", key: "operations" },
   ];
 
   return (

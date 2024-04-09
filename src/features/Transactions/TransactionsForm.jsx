@@ -13,7 +13,7 @@ function TransactionsForm({ onClose }) {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.transactions.status);
   function onSubmit(data) {
-    console.log(status);
+    data = { ...data, date: new Date().toISOString() };
     dispatch(addTransactionAsync(data));
     onClose();
   }
@@ -48,7 +48,10 @@ function TransactionsForm({ onClose }) {
             name="type"
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <label className="w-full py-4 ms-2 text-sm font-medium ">
+          <label
+            htmlFor="type-1"
+            className="w-full py-4 ms-2 text-sm font-medium "
+          >
             Income
           </label>
         </div>
@@ -63,7 +66,10 @@ function TransactionsForm({ onClose }) {
             name="type"
             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          <label className="w-full py-4 ms-2 text-sm font-medium">
+          <label
+            htmlFor="type-2"
+            className="w-full py-4 ms-2 text-sm font-medium"
+          >
             Expense
           </label>
         </div>
@@ -91,15 +97,6 @@ function TransactionsForm({ onClose }) {
           {...register("description")}
           placeholder="Description of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-24 w-72 p-2"
-        />
-      </FormRow>
-
-      <FormRow label="Date*" error={errors?.date?.message}>
-        <input
-          type="date"
-          {...register("date", { required: "Date is required!" })}
-          placeholder="Date of transaction"
-          className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
         />
       </FormRow>
 
