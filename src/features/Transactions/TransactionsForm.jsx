@@ -4,35 +4,40 @@ import FormRow from "../../ui/FormRow";
 import { IoAddCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransactionAsync, editTransactionAsync } from "./transactionsSlice";
+import Spinner from "../../ui/Spinner";
+import { useEffect } from "react";
 
 function TransactionsForm({ transactionToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = transactionToEdit;
   const isEditSession = Boolean(editId);
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
   const dispatch = useDispatch();
+  const status = useSelector((state) => state.transactions.status);
 
-  function onSubmit(data) {
+  const onSubmit = async (data) => {
     if (isEditSession) {
-      dispatch(editTransactionAsync({ ...data, id: editId }));
+      await dispatch(editTransactionAsync({ ...data, id: editId }));
     } else {
       data = { ...data, date: new Date().toISOString() };
-      dispatch(addTransactionAsync(data));
+      await dispatch(addTransactionAsync(data));
     }
-    onClose();
-  }
 
-  function onError(errors) {}
+    if (status === "succeeded") {
+      onClose();
+      reset();
+    }
+  };
 
   return (
     <form
       className="max-w-[400px] overflow-y-auto"
       method="post"
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <p className="text-2xl font-semibold font-almarai">Add new transaction</p>
 
@@ -45,7 +50,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <FormRow label="Type*">
+      <FormRow label="Type*" error={errors?.type?.message}>
         <div className="flex flex-col">
           <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 w-[100%]">
             <input
@@ -112,8 +117,14 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
 
       <div className="flex justify-end mt-2">
         <Button type="base">
-          <IoAddCircle />
-          Submit
+          {status === "loading" ? (
+            <Spinner />
+          ) : (
+            <div className="flex flex-row items-center">
+              <IoAddCircle />
+              Submit
+            </div>
+          )}
         </Button>
       </div>
     </form>
