@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addTransaction,
+  deleteTransaction,
+  editTransaction,
   fetchTransactions,
 } from "../../services/apiTransactions";
 import toast from "react-hot-toast";
@@ -21,13 +23,21 @@ export const addTransactionAsync = createAsyncThunk(
   }
 );
 
-// export const editTransactionAsync = createAsyncThunk(
-//   "transactions/editTransaction",
-//   async (editedTransaction) => {
-//     const response = await editTransactionApi(editedTransaction); // API call to edit a transaction
-//     return response;
-//   }
-// );
+export const deleteTransactionAsync = createAsyncThunk(
+  "transactions/deleteTransaction",
+  async (transactionId) => {
+    const response = await deleteTransaction(transactionId);
+    return response;
+  }
+);
+
+export const editTransactionAsync = createAsyncThunk(
+  "transactions/editTransaction",
+  async (editedTransaction) => {
+    const response = await editTransaction(editedTransaction); // API call to edit a transaction
+    return response;
+  }
+);
 
 const initialState = {
   transactions: null,
@@ -64,23 +74,38 @@ const transactionsSlice = createSlice({
         state.status = "failed";
         toast.error(action.error.message);
         state.error = action.error.message;
+      })
+      .addCase(deleteTransactionAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteTransactionAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        toast.success("Transaction deleted successfully");
+        state.transactions = state.transactions.filter(
+          (transaction) => transaction.id !== action.payload
+        );
+      })
+      .addCase(deleteTransactionAsync.rejected, (state, action) => {
+        state.status = "failed";
+        toast.error(action.error.message);
+        state.error = action.error.message;
+      })
+      .addCase(editTransactionAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(editTransactionAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const editedIndex = state.transactions.findIndex(
+          (t) => t.id === action.payload.id
+        );
+        if (editedIndex !== -1) {
+          state.transactions[editedIndex] = action.payload;
+        }
+      })
+      .addCase(editTransactionAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
-    //   .addCase(editTransactionAsync.pending, (state) => {
-    //     state.status = "loading";
-    //   })
-    //   .addCase(editTransactionAsync.fulfilled, (state, action) => {
-    //     state.status = "succeeded";
-    //     const editedIndex = state.transactions.findIndex(
-    //       (t) => t.id === action.payload.id
-    //     );
-    //     if (editedIndex !== -1) {
-    //       state.transactions[editedIndex] = action.payload;
-    //     }
-    //   })
-    //   .addCase(editTransactionAsync.rejected, (state, action) => {
-    //     state.status = "failed";
-    //     state.error = action.error.message;
-    //   });
   },
 });
 

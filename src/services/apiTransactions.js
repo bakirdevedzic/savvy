@@ -25,3 +25,28 @@ export async function addTransaction(newTransaction) {
 
   return data;
 }
+
+export async function deleteTransaction(id) {
+  const { error } = await supabase.from("transactions").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Transaction could not be deleted");
+  }
+
+  return id;
+}
+
+export async function editTransaction(editedTransaction) {
+  console.log(editedTransaction);
+  const { data, error } = await supabase
+    .from("transactions")
+    .update(editedTransaction)
+    .eq("id", editedTransaction.id)
+    .select();
+
+  if (error) {
+    throw new Error("Transaction could not be deleted");
+  }
+
+  return data;
+}

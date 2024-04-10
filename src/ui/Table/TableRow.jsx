@@ -73,7 +73,7 @@ function renderCell(data, data2) {
           className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap justify-center flex"
           key={data2.key}
         >
-          <Operations />
+          <Operations data={data} />
         </td>
       );
 
@@ -84,7 +84,7 @@ function renderCell(data, data2) {
 
 function TableRow({ data, headData }) {
   return (
-    <tr className="odd:bg-white even:bg-gray-200 hover:bg-blue-200">
+    <tr className="odd:bg-white even:bg-gray-200 hover:bg-blue-200 transition-all	">
       {headData.map((data2) => renderCell(data, data2))}
     </tr>
   );

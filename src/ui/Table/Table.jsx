@@ -1,7 +1,9 @@
 import TableHead from "./TableHead";
 import TableRow from "./TableRow";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function Table({ headData, bodyData }) {
+  const [parent] = useAutoAnimate();
   return (
     <div className="mt-5 rounded-lg shadow overflow-auto">
       <table className="border min-w-max w-full">
@@ -16,7 +18,7 @@ function Table({ headData, bodyData }) {
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-300">
+        <tbody className="divide-y divide-gray-300" ref={parent}>
           {bodyData ? (
             bodyData.map((data, i) => {
               return <TableRow data={data} key={i} headData={headData} />;

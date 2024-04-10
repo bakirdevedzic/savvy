@@ -18,6 +18,7 @@ function AppLayout() {
   const isLargerThan1025 = useMediaQuery({ minWidth: 1026 });
 
   const dispatch = useDispatch();
+
   const transactions = useSelector(getTransactions);
   useEffect(() => {
     if (!transactions) {
