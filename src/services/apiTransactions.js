@@ -37,7 +37,6 @@ export async function deleteTransaction(id) {
 }
 
 export async function editTransaction(editedTransaction) {
-  console.log(editedTransaction);
   const { data, error } = await supabase
     .from("transactions")
     .update(editedTransaction)
@@ -48,5 +47,5 @@ export async function editTransaction(editedTransaction) {
     throw new Error("Transaction could not be deleted");
   }
 
-  return data;
+  return data[0];
 }

@@ -8,11 +8,11 @@ import TransactionsForm from "../features/Transactions/TransactionsForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getTransactions } from "../features/Transactions/transactionsSlice";
 import { useState } from "react";
+import { formatDate } from "../utils/helpers";
 
 function Transactions() {
   const [showModal, setShowModal] = useState(false);
 
-  const dispatch = useDispatch();
   const transactions = useSelector(getTransactions);
 
   const handleOnClose = () => {

@@ -1,4 +1,4 @@
-import { formatCurrency, formatMonth } from "../../utils/helpers";
+import { formatCurrency, formatDate, formatMonth } from "../../utils/helpers";
 import Operations from "../Operations";
 
 function renderCell(data, data2) {
@@ -38,7 +38,7 @@ function renderCell(data, data2) {
           key={data2.key}
           className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap"
         >
-          {data[data2.key]}
+          {formatDate(data[data2.key])}
         </td>
       );
     case "month":
