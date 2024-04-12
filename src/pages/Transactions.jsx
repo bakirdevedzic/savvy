@@ -5,10 +5,9 @@ import { MdAddBox } from "react-icons/md";
 import Modal from "../ui/Modal";
 
 import TransactionsForm from "../features/Transactions/TransactionsForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getTransactions } from "../features/Transactions/transactionsSlice";
 import { useState } from "react";
-import { formatDate } from "../utils/helpers";
 
 function Transactions() {
   const [showModal, setShowModal] = useState(false);

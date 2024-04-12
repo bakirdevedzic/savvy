@@ -73,7 +73,7 @@ function renderCell(data, data2) {
           className="p-3 font-poppins text-sm text-gray-700 whitespace-nowrap justify-center flex"
           key={data2.key}
         >
-          <Operations data={data} />
+          <Operations data={data} type={data2.dataType} />
         </td>
       );
 

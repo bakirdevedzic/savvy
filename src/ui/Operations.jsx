@@ -6,13 +6,59 @@ import { deleteTransactionAsync } from "../features/Transactions/transactionsSli
 import { useState } from "react";
 import Modal from "./Modal";
 import TransactionsForm from "../features/Transactions/TransactionsForm";
+import ConfirmationTab from "./ConfirmationTab";
 
-function Operations({ data }) {
+function Operations({ data, type }) {
   const dispatch = useDispatch();
-  function handleDeleteTransaction() {
-    dispatch(deleteTransactionAsync(data.id));
-  }
+  const [action, setAction] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function handleDelete() {
+    setAction("delete");
+    setShowModal(true);
+  }
+
+  function handleEdit() {
+    setAction("edit");
+    setShowModal(true);
+  }
+
+  function confirmDelete() {
+    setLoading(true);
+
+    if (type === "transactions") {
+      dispatch(deleteTransactionAsync(data.id)).then(() => {
+        setLoading(false);
+        setShowModal(false);
+      });
+    }
+  }
+
+  const renderModalContent = () => {
+    if (action === "edit") {
+      if (type === "transactions") {
+        return (
+          <TransactionsForm onClose={handleOnClose} transactionToEdit={data} />
+        );
+      }
+    } else if (action === "delete") {
+      if (type === "transactions") {
+        return (
+          <ConfirmationTab
+            onClick={setShowModal}
+            confirm={confirmDelete}
+            title="Delete Transaction"
+            text="Are you sure you want to delete this transaction?"
+            loading={loading}
+          />
+        );
+      }
+    }
+
+    return null;
+  };
+
   const handleOnClose = () => {
     setShowModal(false);
   };
@@ -21,16 +67,10 @@ function Operations({ data }) {
       <div>
         <div className="flex flex-row text-lg text-gray-600 gap-2">
           <div>
-            <RiEdit2Fill
-              className="cursor-pointer"
-              onClick={() => setShowModal(true)}
-            />
+            <RiEdit2Fill className="cursor-pointer" onClick={handleEdit} />
           </div>
           <div>
-            <MdDelete
-              className="cursor-pointer"
-              onClick={handleDeleteTransaction}
-            />
+            <MdDelete className="cursor-pointer" onClick={handleDelete} />
           </div>
         </div>
       </div>
@@ -39,12 +79,7 @@ function Operations({ data }) {
         <Modal
           visible={showModal}
           onClose={handleOnClose}
-          render={
-            <TransactionsForm
-              onClose={handleOnClose}
-              transactionToEdit={data}
-            />
-          }
+          render={renderModalContent()}
         />
       </div>
     </div>
