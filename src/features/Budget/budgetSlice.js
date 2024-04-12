@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addBudget, fetchBudgets } from "../../services/apiBudget";
+import {
+  addBudget,
+  deleteBudget,
+  editBudget,
+  fetchBudgets,
+} from "../../services/apiBudget";
+import toast from "react-hot-toast";
 
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
@@ -17,13 +23,22 @@ export const addBudgetAsync = createAsyncThunk(
   }
 );
 
-// export const editBudgetAsync = createAsyncThunk(
-//   "budgets/editBudget",
-//   async (editedBudget) => {
-//     const response = await editBudgetApi(editedBudget); // API call to edit a budget
-//     return response;
-//   }
-// );
+export const editBudgetAsync = createAsyncThunk(
+  "budgets/editBudget",
+  async (editedBudget) => {
+    const response = await editBudget(editedBudget); // API call to edit a budget
+    return response;
+  }
+);
+
+export const deleteBudgetAsync = createAsyncThunk(
+  "budgets/deleteBudget",
+  async (budgetId) => {
+    const response = await deleteBudget(budgetId);
+    return response;
+  }
+);
+
 const initialState = {
   budgets: [],
   currentBudget: null,
@@ -54,7 +69,7 @@ const budgetsSlice = createSlice({
           );
         });
         if (currentBudget) {
-          state.currentBudget = currentBudget.planned_amount;
+          state.currentBudget = currentBudget;
         } else {
           state.currentBudget = null;
         }
@@ -70,27 +85,48 @@ const budgetsSlice = createSlice({
         state.status = "succeeded";
         state.budgets.push(action.payload);
         state.budgets.sort((a, b) => new Date(b.month) - new Date(a.month));
+        toast.success("Budget added successfully");
       })
       .addCase(addBudgetAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(editBudgetAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(editBudgetAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        toast.success("Budget edited successfully");
+        const editedIndex = state.budgets.findIndex(
+          (b) => b.id === action.payload.id
+        );
+        if (editedIndex !== -1) {
+          state.budgets[editedIndex] = action.payload;
+        }
+      })
+      .addCase(editBudgetAsync.rejected, (state, action) => {
+        state.status = "failed";
+        toast.error(action.error.message);
+        state.error = action.error.message;
+      })
+      .addCase(deleteBudgetAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteBudgetAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        toast.success("Budget deleted successfully");
+        state.budgets = state.budgets.filter(
+          (budget) => budget.id !== action.payload
+        );
+        if (state.currentBudget && state.currentBudget.id === action.payload) {
+          state.currentBudget = null;
+        }
+      })
+      .addCase(deleteBudgetAsync.rejected, (state, action) => {
+        state.status = "failed";
+        toast.error(action.error.message);
+        state.error = action.error.message;
       });
-    //   .addCase(editBudgetAsync.pending, (state) => {
-    //     state.status = "loading";
-    //   })
-    //   .addCase(editBudgetAsync.fulfilled, (state, action) => {
-    //     state.status = "succeeded";
-    //     const editedIndex = state.budgets.findIndex(
-    //       (b) => b.id === action.payload.id
-    //     );
-    //     if (editedIndex !== -1) {
-    //       state.budgets[editedIndex] = action.payload;
-    //     }
-    //   })
-    //   .addCase(editBudgetAsync.rejected, (state, action) => {
-    //     state.status = "failed";
-    //     state.error = action.error.message;
-    //   });
   },
 });
 

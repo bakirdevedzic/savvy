@@ -39,7 +39,9 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
       method="post"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <p className="text-2xl font-semibold font-almarai">Add new transaction</p>
+      <p className="text-2xl font-semibold font-almarai">
+        {isEditSession ? "Edit transaction" : "Add new transaction"}
+      </p>
 
       <FormRow label="Name*" error={errors?.name?.message}>
         <input

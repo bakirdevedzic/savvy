@@ -25,3 +25,27 @@ export async function addBudget(newBudget) {
 
   return data[0];
 }
+
+export async function editBudget(editedBudget) {
+  const { data, error } = await supabase
+    .from("budgets")
+    .update(editedBudget)
+    .eq("id", editedBudget.id)
+    .select();
+
+  if (error) {
+    throw new Error("Budget could not be edited");
+  }
+
+  return data[0];
+}
+
+export async function deleteBudget(id) {
+  const { error } = await supabase.from("budgets").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Budget could not be deleted");
+  }
+
+  return id;
+}

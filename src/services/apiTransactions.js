@@ -44,7 +44,7 @@ export async function editTransaction(editedTransaction) {
     .select();
 
   if (error) {
-    throw new Error("Transaction could not be deleted");
+    throw new Error("Transaction could not be edited");
   }
 
   return data[0];

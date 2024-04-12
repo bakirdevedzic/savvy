@@ -6,12 +6,10 @@ import BudgetTable from "../features/Budget/BudgetTable.jsx";
 import { useState } from "react";
 import Modal from "../ui/Modal";
 import BudgetForm from "../features/Budget/BudgetForm.jsx";
-import UpdateBudgetForm from "../features/Budget/UpdateBudgetForm.jsx";
+
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getBudgets,
-  getCurrentBudget,
-} from "../features/Budget/budgetSlice.js";
+import { getBudgets } from "../features/Budget/budgetSlice.js";
+import { currentBudget } from "../utils/budgetHelpers.js";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +19,7 @@ function Budget() {
 
   const budgets = useSelector(getBudgets);
 
-  const currentBudget = useSelector(getCurrentBudget);
+  const currentBudget2 = currentBudget(budgets);
 
   function handleAddNewBudget() {
     setShowModal(true);
@@ -41,7 +39,9 @@ function Budget() {
     if (action === "add") {
       return <BudgetForm onClose={handleOnClose} />;
     } else if (action === "update") {
-      return <UpdateBudgetForm />;
+      return (
+        <BudgetForm onClose={handleOnClose} budgetToEdit={currentBudget2} />
+      );
     }
 
     return null;
@@ -50,7 +50,10 @@ function Budget() {
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
         <InfoCard label="Total amount" amount={45685} />
-        <InfoCard label="Budget for this month" amount={currentBudget} />
+        <InfoCard
+          label="Budget for this month"
+          amount={currentBudget2?.planned_amount}
+        />
         <InfoCard label="Spent this month" amount={6450} color="red" />
         <InfoCard
           label="Remaining for this month"

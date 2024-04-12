@@ -6,6 +6,13 @@ function BudgetTable({ budgets }) {
     { title: "Planned", width: 3, type: "money", key: "planned_amount" },
     { title: "Spent", width: 3, type: "money", key: "spent_amount" },
     { title: "Saved", width: 3, type: "money", key: "saved_amount" },
+    {
+      title: "Operations",
+      width: 1,
+      type: "operations",
+      key: "operations",
+      dataType: "budgets",
+    },
   ];
 
   return <Table headData={headData} bodyData={budgets} />;

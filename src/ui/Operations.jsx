@@ -1,12 +1,14 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
-import { deleteTransaction } from "../services/apiTransactions";
+
 import { useDispatch } from "react-redux";
 import { deleteTransactionAsync } from "../features/Transactions/transactionsSlice";
 import { useState } from "react";
 import Modal from "./Modal";
 import TransactionsForm from "../features/Transactions/TransactionsForm";
 import ConfirmationTab from "./ConfirmationTab";
+import BudgetForm from "../features/Budget/BudgetForm";
+import { deleteBudgetAsync } from "../features/Budget/budgetSlice";
 
 function Operations({ data, type }) {
   const dispatch = useDispatch();
@@ -32,6 +34,11 @@ function Operations({ data, type }) {
         setLoading(false);
         setShowModal(false);
       });
+    } else if (type === "budgets") {
+      dispatch(deleteBudgetAsync(data.id)).then(() => {
+        setLoading(false);
+        setShowModal(false);
+      });
     }
   }
 
@@ -42,6 +49,9 @@ function Operations({ data, type }) {
           <TransactionsForm onClose={handleOnClose} transactionToEdit={data} />
         );
       }
+      if (type === "budgets") {
+        return <BudgetForm onClose={handleOnClose} budgetToEdit={data} />;
+      }
     } else if (action === "delete") {
       if (type === "transactions") {
         return (
@@ -50,6 +60,16 @@ function Operations({ data, type }) {
             confirm={confirmDelete}
             title="Delete Transaction"
             text="Are you sure you want to delete this transaction?"
+            loading={loading}
+          />
+        );
+      } else if (type === "budgets") {
+        return (
+          <ConfirmationTab
+            onClick={setShowModal}
+            confirm={confirmDelete}
+            title="Delete Budget"
+            text="Are you sure you want to delete this budget?"
             loading={loading}
           />
         );
