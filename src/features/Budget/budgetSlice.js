@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchBudgets } from "../../services/apiBudget";
+import { addBudget, fetchBudgets } from "../../services/apiBudget";
 
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
@@ -9,13 +9,13 @@ export const fetchBudgetsAsync = createAsyncThunk(
   }
 );
 
-// export const addBudgetAsync = createAsyncThunk(
-//   "budgets/addBudget",
-//   async (newBudget) => {
-//     const response = await addBudget(newBudget); // API call to add a new budget
-//     return response;
-//   }
-// );
+export const addBudgetAsync = createAsyncThunk(
+  "budgets/addBudget",
+  async (newBudget) => {
+    const response = await addBudget(newBudget); // API call to add a new budget
+    return response;
+  }
+);
 
 // export const editBudgetAsync = createAsyncThunk(
 //   "budgets/editBudget",
@@ -62,18 +62,19 @@ const budgetsSlice = createSlice({
       .addCase(fetchBudgetsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addBudgetAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addBudgetAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.budgets.push(action.payload);
+        state.budgets.sort((a, b) => new Date(b.month) - new Date(a.month));
+      })
+      .addCase(addBudgetAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
-    //   .addCase(addBudgetAsync.pending, (state) => {
-    //     state.status = "loading";
-    //   })
-    //   .addCase(addBudgetAsync.fulfilled, (state, action) => {
-    //     state.status = "succeeded";
-    //     state.budgets.push(action.payload);
-    //   })
-    //   .addCase(addBudgetAsync.rejected, (state, action) => {
-    //     state.status = "failed";
-    //     state.error = action.error.message;
-    //   })
     //   .addCase(editBudgetAsync.pending, (state) => {
     //     state.status = "loading";
     //   })

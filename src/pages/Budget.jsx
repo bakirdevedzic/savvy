@@ -12,7 +12,6 @@ import {
   getBudgets,
   getCurrentBudget,
 } from "../features/Budget/budgetSlice.js";
-import Spinner from "../ui/Spinner.jsx";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
@@ -21,17 +20,8 @@ function Budget() {
   const dispatch = useDispatch();
 
   const budgets = useSelector(getBudgets);
-  const status = useSelector((state) => state.budgets.status);
-  const error = useSelector((state) => state.budgets.error);
+
   const currentBudget = useSelector(getCurrentBudget);
-
-  if (status === "loading") {
-    return <Spinner />;
-  }
-
-  if (status === "failed") {
-    return <div>Error: {error}</div>;
-  }
 
   function handleAddNewBudget() {
     setShowModal(true);
@@ -49,7 +39,7 @@ function Budget() {
 
   const renderModalContent = () => {
     if (action === "add") {
-      return <BudgetForm />;
+      return <BudgetForm onClose={handleOnClose} />;
     } else if (action === "update") {
       return <UpdateBudgetForm />;
     }

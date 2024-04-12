@@ -32,3 +32,13 @@ export function formatDate(dateString) {
     return `${day}/${month}/${year}`;
   }
 }
+
+export function transformMonth(inputDate) {
+  const [yearStr, monthStr] = inputDate.split("-");
+
+  const newDate = new Date(parseInt(yearStr), parseInt(monthStr), 1);
+
+  const formattedDate = newDate.toISOString().slice(0, 10);
+
+  return formattedDate;
+}

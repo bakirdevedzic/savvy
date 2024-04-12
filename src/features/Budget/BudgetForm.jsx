@@ -2,36 +2,38 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { IoAddCircle } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { addBudgetAsync, getBudgets } from "./budgetSlice";
+import Spinner from "../../ui/Spinner";
+import { transformMonth } from "../../utils/helpers";
+import { checkIfMonthIsUnique } from "../../utils/budgetHelpers";
 
-function BudgetForm() {
+function BudgetForm({ onClose }) {
   const { register, handleSubmit, formState } = useForm();
 
   const { errors } = formState;
 
-  function onSubmit(data) {
-    console.log(data);
-  }
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.budgets.status);
+  const budgets = useSelector(getBudgets);
 
-  function onError(errors) {
-    console.log(errors);
-  }
+  const onSubmit = async (data) => {
+    await dispatch(
+      addBudgetAsync({ ...data, month: transformMonth(data.month) })
+    );
+    if (status === "succeeded") {
+      onClose();
+    }
+  };
 
   const isMonthAvailable = (selectedMonth) => {
-    const monthsArray = [
-      "2024-06",
-      "2022-02",
-      "2022-03",
-      "2022-04",
-      "2022-05",
-      "2022-06",
-    ];
-    return !monthsArray.includes(selectedMonth);
+    return !checkIfMonthIsUnique(budgets, selectedMonth);
   };
   return (
     <form
       className="max-w-[400px] overflow-y-auto"
       method="post"
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <p className="text-2xl font-semibold font-almarai">
         Plan a budget for a month!
@@ -50,11 +52,11 @@ function BudgetForm() {
         />
       </FormRow>
 
-      <FormRow label="Amount*" error={errors?.amount?.message}>
+      <FormRow label="Amount*" error={errors?.planned_amount?.message}>
         <input
           type="number"
           name="money"
-          {...register("amount", {
+          {...register("planned_amount", {
             required: "Amount is required!",
             min: {
               value: 1,
@@ -68,8 +70,14 @@ function BudgetForm() {
 
       <div className="flex justify-end mt-2">
         <Button type="base">
-          <IoAddCircle />
-          Submit
+          {status === "loading" ? (
+            <Spinner />
+          ) : (
+            <div className="flex flex-row items-center">
+              <IoAddCircle />
+              Submit
+            </div>
+          )}
         </Button>
       </div>
     </form>
