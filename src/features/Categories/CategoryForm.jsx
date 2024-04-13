@@ -23,7 +23,6 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
     if (isEditSession) {
       await dispatch(editCategoryAsync({ ...data, id: editId }));
     } else {
-      console.log(data);
       await dispatch(addCategoryAsync(data));
     }
 
@@ -39,7 +38,9 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
       method="post"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <p className="text-2xl font-semibold font-almarai">Create new category</p>
+      <p className="text-2xl font-semibold font-almarai">
+        {isEditSession ? "Edit category" : "Create new category"}
+      </p>
 
       <FormRow label="Name*" error={errors?.name?.message}>
         <input

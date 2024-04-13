@@ -36,3 +36,13 @@ export async function editCategory(editedCategory) {
 
   return data[0];
 }
+
+export async function deleteCateogry(id) {
+  const { error } = await supabase.from("categories").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Category could not be deleted");
+  }
+
+  return id;
+}

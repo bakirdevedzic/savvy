@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addCategory,
+  deleteCateogry,
   editCategory,
   fetchCategories,
 } from "../../services/apiCategories";
@@ -27,6 +28,14 @@ export const editCategoryAsync = createAsyncThunk(
   "categories/editCategory",
   async (editedCategory) => {
     const response = await editCategory(editedCategory); // API call to edit a category
+    return response;
+  }
+);
+
+export const deleteCategoryAsync = createAsyncThunk(
+  "categories/deleteCategory",
+  async (categoryId) => {
+    const response = await deleteCateogry(categoryId);
     return response;
   }
 );
@@ -99,6 +108,29 @@ const categoriesSlice = createSlice({
         toast.success("Category edited successfully");
       })
       .addCase(editCategoryAsync.rejected, (state, action) => {
+        state.status = "failed";
+        toast.error(action.error.message);
+        state.error = action.error.message;
+      })
+      .addCase(deleteCategoryAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteCategoryAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const deletedCategoryId = action.payload;
+        toast.success("Category deleted successfully");
+
+        // Remove the deleted category from the income categories array
+        state.incomeCategories = state.incomeCategories.filter(
+          (category) => category.id !== deletedCategoryId
+        );
+
+        // Remove the deleted category from the expense categories array
+        state.expenseCategories = state.expenseCategories.filter(
+          (category) => category.id !== deletedCategoryId
+        );
+      })
+      .addCase(deleteCategoryAsync.rejected, (state, action) => {
         state.status = "failed";
         toast.error(action.error.message);
         state.error = action.error.message;
