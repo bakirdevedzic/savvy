@@ -50,7 +50,7 @@ function Categories() {
       <Modal
         visible={showModal}
         onClose={handleOnClose}
-        render={<CategoryForm />}
+        render={<CategoryForm onClose={handleOnClose} />}
       />
     </div>
   );

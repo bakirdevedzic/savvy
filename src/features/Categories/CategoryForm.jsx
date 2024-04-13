@@ -2,25 +2,42 @@ import { IoAddCircle } from "react-icons/io5";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { addCategoryAsync, editCategoryAsync } from "./categoriesSlice";
+import Spinner from "../../ui/Spinner";
 
-function CategoryForm() {
-  const { register, handleSubmit, formState } = useForm();
+function CategoryForm({ onClose, categoryToEdit = {} }) {
+  const { id: editId, ...editValues } = categoryToEdit;
+  const isEditSession = Boolean(editId);
+
+  const { register, handleSubmit, formState, reset } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
 
   const { errors } = formState;
 
-  function onSubmit(data) {
-    console.log(data);
-  }
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.categories.status);
 
-  function onError(errors) {
-    console.log(errors);
-  }
+  const onSubmit = async (data) => {
+    if (isEditSession) {
+      await dispatch(editCategoryAsync({ ...data, id: editId }));
+    } else {
+      console.log(data);
+      await dispatch(addCategoryAsync(data));
+    }
+
+    if (status === "succeeded") {
+      onClose();
+      reset();
+    }
+  };
 
   return (
     <form
       className="max-w-[400px] overflow-y-auto"
       method="post"
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <p className="text-2xl font-semibold font-almarai">Create new category</p>
 
@@ -32,43 +49,56 @@ function CategoryForm() {
           {...register("name", { required: "Name of category is required!" })}
         />
       </FormRow>
+      {!isEditSession && (
+        <FormRow label="Type*" error={errors?.type?.message}>
+          <div className="flex flex-col">
+            <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 w-[100%]">
+              <input
+                id="type-1"
+                {...register("type", { required: "Type is required!" })}
+                type="radio"
+                defaultValue="INCOME"
+                name="type"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="type-1"
+                className="w-full py-4 ms-2 text-sm font-medium "
+              >
+                Income
+              </label>
+            </div>
 
-      <FormRow label="Type*">
-        <div className="inline-flex items-center justify-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 w-[100%]">
-          <input
-            id="type-1"
-            {...register("type", { required: "Type is required!" })}
-            checked
-            type="radio"
-            defaultValue="INCOME"
-            name="type"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label className="w-full py-4 ms-2 text-sm font-medium ">
-            Income
-          </label>
-        </div>
-
-        <div className="inline-flex items-center justify-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 w-[100%]">
-          <input
-            checked
-            id="type-2"
-            {...register("type", { required: "Type is required!" })}
-            type="radio"
-            defaultValue="EXPENSE"
-            name="type"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label className="w-full py-4 ms-2 text-sm font-medium">
-            Expense
-          </label>
-        </div>
-      </FormRow>
+            <div className="inline-flex items-center justify-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 w-[100%]">
+              <input
+                id="type-2"
+                {...register("type", { required: "Type is required!" })}
+                type="radio"
+                defaultValue="EXPENSE"
+                name="type"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="type-2"
+                className="w-full py-4 ms-2 text-sm font-medium"
+              >
+                Expense
+              </label>
+            </div>
+          </div>
+        </FormRow>
+      )}
 
       <div className="flex justify-end mt-2">
         <Button type="base">
-          <IoAddCircle />
-          Submit
+          {status === "loading" ? (
+            <Spinner />
+          ) : (
+            <div className="flex flex-row items-center">
+              <IoAddCircle />
+              Submit
+            </div>
+          )}
         </Button>
       </div>
     </form>

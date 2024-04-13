@@ -9,3 +9,30 @@ export async function fetchCategories() {
 
   return data;
 }
+
+export async function addCategory(newCategory) {
+  const { data, error } = await supabase
+    .from("categories")
+    .insert([newCategory])
+    .select();
+
+  if (error) {
+    throw new Error("Error uploading category");
+  }
+
+  return data[0];
+}
+
+export async function editCategory(editedCategory) {
+  const { data, error } = await supabase
+    .from("categories")
+    .update(editedCategory)
+    .eq("id", editedCategory.id)
+    .select();
+
+  if (error) {
+    throw new Error("Category could not be edited");
+  }
+
+  return data[0];
+}

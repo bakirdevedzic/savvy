@@ -9,6 +9,7 @@ import TransactionsForm from "../features/Transactions/TransactionsForm";
 import ConfirmationTab from "./ConfirmationTab";
 import BudgetForm from "../features/Budget/BudgetForm";
 import { deleteBudgetAsync } from "../features/Budget/budgetSlice";
+import CategoryForm from "../features/Categories/CategoryForm";
 
 function Operations({ data, type }) {
   const dispatch = useDispatch();
@@ -40,17 +41,23 @@ function Operations({ data, type }) {
         setShowModal(false);
       });
     }
+    // } else if (type === "categories") {
+    //   dispatch(deleteBudgetAsync(data.id)).then(() => {
+    //     setLoading(false);
+    //     setShowModal(false);
+    //   });
+    // }
   }
-
   const renderModalContent = () => {
     if (action === "edit") {
       if (type === "transactions") {
         return (
           <TransactionsForm onClose={handleOnClose} transactionToEdit={data} />
         );
-      }
-      if (type === "budgets") {
+      } else if (type === "budgets") {
         return <BudgetForm onClose={handleOnClose} budgetToEdit={data} />;
+      } else if (type === "categories") {
+        return <CategoryForm onClose={handleOnClose} categoryToEdit={data} />;
       }
     } else if (action === "delete") {
       if (type === "transactions") {

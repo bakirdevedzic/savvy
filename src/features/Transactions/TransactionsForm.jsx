@@ -5,7 +5,6 @@ import { IoAddCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransactionAsync, editTransactionAsync } from "./transactionsSlice";
 import Spinner from "../../ui/Spinner";
-import { useEffect } from "react";
 
 function TransactionsForm({ transactionToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = transactionToEdit;
