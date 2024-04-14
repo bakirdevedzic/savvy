@@ -27,7 +27,7 @@ function GoalCard({ data }) {
 
   const renderModalContent = () => {
     if (action === "update") {
-      return <GoalUpdateForm />;
+      return <GoalUpdateForm goalToEdit={data} onClose={handleOnClose} />;
     } else if (action === "finish") {
       return <ConfirmationTab onClick={setShowModal} />;
     }
@@ -63,7 +63,6 @@ function GoalCard({ data }) {
         <div>
           <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div
-              // className={`bg-blue-600 h-2.5 rounded-full`}
               style={{
                 backgroundColor: "#2563eb",
                 height: "0.625rem",
@@ -71,7 +70,6 @@ function GoalCard({ data }) {
                 width: `${percentage}%`,
               }}
             ></div>
-            {/* OBRATITI PAŽNJU DA KADA IDE IZNAD 100% DA TO BUDE 100% */}
           </div>
 
           <div className="flex flex-rows justify-between">

@@ -38,7 +38,7 @@ function Goals() {
       <Modal
         visible={showModal}
         onClose={handleOnClose}
-        render={<GoalForm />}
+        render={<GoalForm onClose={handleOnClose} />}
       />
     </div>
   );

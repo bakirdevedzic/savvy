@@ -1,7 +1,10 @@
 import supabase from "./supabase";
 
 export async function fetchGoals() {
-  let { data, error } = await supabase.from("goals").select("*");
+  let { data, error } = await supabase
+    .from("goals")
+    .select("*")
+    .order("start_date", { ascending: true });
 
   if (error) {
     throw new Error("Goals could not be loaded");
@@ -11,9 +14,19 @@ export async function fetchGoals() {
 }
 
 export async function addGoal(newGoal) {
+  let start_date = new Date();
+  const offset = start_date.getTimezoneOffset();
+  start_date = new Date(start_date.getTime() - offset * 60 * 1000);
+
   const { data, error } = await supabase
     .from("goals")
-    .insert([newGoal])
+    .insert([
+      {
+        ...newGoal,
+        active: true,
+        start_date: start_date.toISOString().split("T")[0],
+      },
+    ])
     .select();
 
   if (error) {
@@ -42,6 +55,22 @@ export async function editGoal(editedGoal) {
 
   if (error) {
     throw new Error("Goal could not be edited");
+  }
+
+  return data[0];
+}
+
+export async function updateSavedAmount({ add_amount, id, saved_amount }) {
+  const new_amount = saved_amount + add_amount;
+
+  const { data, error } = await supabase
+    .from("goals")
+    .update({ saved_amount: new_amount })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    throw new Error("Error updating saved_amount");
   }
 
   return data[0];

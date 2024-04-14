@@ -4,6 +4,7 @@ import {
   deleteGoal,
   editGoal,
   fetchGoals,
+  updateSavedAmount,
 } from "../../services/apiGoals";
 import toast from "react-hot-toast";
 
@@ -19,7 +20,7 @@ export const fetchGoalsAsync = createAsyncThunk(
 export const addGoalAsync = createAsyncThunk(
   "goals/addGoal",
   async (newGoal) => {
-    const response = await addGoal(newGoal); // API call to add a new goal
+    const response = await addGoal(newGoal);
     return response;
   }
 );
@@ -27,7 +28,7 @@ export const addGoalAsync = createAsyncThunk(
 export const editGoalAsync = createAsyncThunk(
   "goals/editGoal",
   async (editedGoal) => {
-    const response = await editGoal(editedGoal); // API call to edit a goal
+    const response = await editGoal(editedGoal);
     return response;
   }
 );
@@ -36,6 +37,14 @@ export const deleteGoalAsync = createAsyncThunk(
   "goals/deleteGoal",
   async (goalId) => {
     const response = await deleteGoal(goalId);
+    return response;
+  }
+);
+
+export const addAmountToGoalAsync = createAsyncThunk(
+  "goals/addAmountToGoal",
+  async ({ add_amount, id, saved_amount }) => {
+    const response = await updateSavedAmount({ add_amount, id, saved_amount });
     return response;
   }
 );
@@ -75,7 +84,7 @@ const goalsSlice = createSlice({
       })
       .addCase(addGoalAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.goals.push(action.payload);
+        state.activeGoals.push(action.payload);
         toast.success("Goal added successfully");
       })
       .addCase(addGoalAsync.rejected, (state, action) => {
@@ -87,11 +96,11 @@ const goalsSlice = createSlice({
       })
       .addCase(editGoalAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const editedIndex = state.goals.findIndex(
+        const editedIndex = state.activeGoals.findIndex(
           (g) => g.id === action.payload.id
         );
         if (editedIndex !== -1) {
-          state.goals[editedIndex] = action.payload;
+          state.activeGoals[editedIndex] = action.payload;
         }
         toast.success("Goal edited successfully");
       })
@@ -105,12 +114,36 @@ const goalsSlice = createSlice({
       .addCase(deleteGoalAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Goal deleted successfully");
-        state.goals = state.goals.filter((goal) => goal.id !== action.payload);
+        state.finishedGoals = state.finishedGoals.filter(
+          (goal) => goal.id !== action.payload
+        );
       })
       .addCase(deleteGoalAsync.rejected, (state, action) => {
         state.status = "failed";
         toast.error(action.error.message);
         state.error = action.error.message;
+      })
+      .addCase(addAmountToGoalAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addAmountToGoalAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const updatedGoal = action.payload;
+
+        const updatedIndex = state.activeGoals.findIndex(
+          (g) => g.id === updatedGoal.id
+        );
+
+        if (updatedIndex !== -1) {
+          state.activeGoals[updatedIndex] = updatedGoal;
+        }
+
+        toast.success("Amount added to goal successfully");
+      })
+      .addCase(addAmountToGoalAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        toast.error(action.error.message);
       });
   },
 });
