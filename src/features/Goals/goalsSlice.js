@@ -71,9 +71,11 @@ const goalsSlice = createSlice({
         state.activeGoals = action.payload.filter(
           (goal) => goal.active === true
         );
-        state.finishedGoals = action.payload.filter(
-          (goal) => goal.active === false
-        );
+        state.finishedGoals = action.payload
+          .filter((goal) => goal.active === false)
+          .sort((a, b) => {
+            return b.finished_date.localeCompare(a.finished_date);
+          });
       })
       .addCase(fetchGoalsAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -99,8 +101,14 @@ const goalsSlice = createSlice({
         const editedIndex = state.activeGoals.findIndex(
           (g) => g.id === action.payload.id
         );
+
         if (editedIndex !== -1) {
-          state.activeGoals[editedIndex] = action.payload;
+          if (action.payload.active === false) {
+            state.finishedGoals.unshift(state.activeGoals[editedIndex]);
+            state.activeGoals.splice(editedIndex, 1);
+          } else {
+            state.activeGoals[editedIndex] = action.payload;
+          }
         }
         toast.success("Goal edited successfully");
       })
