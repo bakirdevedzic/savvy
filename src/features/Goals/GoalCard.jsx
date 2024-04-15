@@ -6,10 +6,21 @@ import { GrUpdate } from "react-icons/gr";
 import GoalUpdateForm from "./GoalUpdateForm";
 import ConfirmationTab from "../../ui/ConfirmationTab";
 import { formatCurrency } from "../../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { editGoalAsync } from "./goalsSlice";
 
 function GoalCard({ data }) {
   const [showModal, setShowModal] = useState(false);
   const [action, setAction] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const status = useSelector((state) => state.goals.status);
+  const dispatch = useDispatch();
+
+  const text =
+    data.saved_amount < data.goal_amount
+      ? "You haven't reached goal yet!"
+      : "Once you finish goal, you won't be able to update it!";
+  const title = "Are you sure you want to finish goal?";
 
   function handleUpdateGoal() {
     setShowModal(true);
@@ -25,11 +36,33 @@ function GoalCard({ data }) {
     setAction(null);
   };
 
+  const handleGoalFinished = async () => {
+    let date_finished = new Date();
+    const offset = date_finished.getTimezoneOffset();
+    date_finished = new Date(date_finished.getTime() - offset * 60 * 1000);
+    setLoading(true);
+    await dispatch(
+      editGoalAsync({ ...data, active: false, finished_date: date_finished })
+    );
+    if (status === "succeeded") {
+      setLoading(false);
+      setShowModal(false);
+      setAction(null);
+    }
+  };
   const renderModalContent = () => {
     if (action === "update") {
       return <GoalUpdateForm goalToEdit={data} onClose={handleOnClose} />;
     } else if (action === "finish") {
-      return <ConfirmationTab onClick={setShowModal} />;
+      return (
+        <ConfirmationTab
+          onClick={setShowModal}
+          text={text}
+          title={title}
+          confirm={handleGoalFinished}
+          loading={loading}
+        />
+      );
     }
 
     return null;
