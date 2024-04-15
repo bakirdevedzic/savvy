@@ -7,6 +7,7 @@ import { addBudgetAsync, editBudgetAsync, getBudgets } from "./budgetSlice";
 import Spinner from "../../ui/Spinner";
 import { formatMonth, transformMonth } from "../../utils/helpers";
 import { checkIfMonthIsUnique } from "../../utils/budgetHelpers";
+import ButtonConfirm from "../../ui/ButtonConfirm";
 
 function BudgetForm({ budgetToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = budgetToEdit;
@@ -68,6 +69,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
       <FormRow label="Amount*" error={errors?.planned_amount?.message}>
         <input
           type="number"
+          step="0.01"
           name="money"
           {...register("planned_amount", {
             required: "Amount is required!",
@@ -81,18 +83,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <div className="flex justify-end mt-2">
-        <Button type="base">
-          {status === "loading" ? (
-            <Spinner />
-          ) : (
-            <div className="flex flex-row items-center">
-              <IoAddCircle />
-              Submit
-            </div>
-          )}
-        </Button>
-      </div>
+      <ButtonConfirm status={status} />
     </form>
   );
 }

@@ -5,6 +5,7 @@ import { IoAddCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransactionAsync, editTransactionAsync } from "./transactionsSlice";
 import Spinner from "../../ui/Spinner";
+import ButtonConfirm from "../../ui/ButtonConfirm";
 
 function TransactionsForm({ transactionToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = transactionToEdit;
@@ -95,6 +96,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
         <input
           type="number"
           name="money"
+          step="0.01"
           {...register("amount", {
             required: "Amount is required!",
             min: {
@@ -116,18 +118,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
         />
       </FormRow>
 
-      <div className="flex justify-end mt-2">
-        <Button type="base">
-          {status === "loading" ? (
-            <Spinner />
-          ) : (
-            <div className="flex flex-row items-center">
-              <IoAddCircle />
-              Submit
-            </div>
-          )}
-        </Button>
-      </div>
+      <ButtonConfirm status={status} />
     </form>
   );
 }

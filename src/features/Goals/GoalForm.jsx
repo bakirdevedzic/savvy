@@ -5,6 +5,7 @@ import { IoAddCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addGoalAsync } from "./goalsSlice";
 import Spinner from "../../ui/Spinner";
+import ButtonConfirm from "../../ui/ButtonConfirm";
 
 function GoalForm({ onClose }) {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -56,18 +57,7 @@ function GoalForm({ onClose }) {
         />
       </FormRow>
 
-      <div className="flex justify-end mt-2">
-        <Button type="base">
-          {status === "loading" ? (
-            <Spinner />
-          ) : (
-            <div className="flex flex-row items-center">
-              <IoAddCircle />
-              Submit
-            </div>
-          )}
-        </Button>
-      </div>
+      <ButtonConfirm status={status} />
     </form>
   );
 }

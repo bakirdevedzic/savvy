@@ -11,6 +11,7 @@ import BudgetForm from "../features/Budget/BudgetForm";
 import { deleteBudgetAsync } from "../features/Budget/budgetSlice";
 import CategoryForm from "../features/Categories/CategoryForm";
 import { deleteCategoryAsync } from "../features/Categories/categoriesSlice";
+import { deleteGoalAsync } from "../features/Goals/goalsSlice";
 
 function Operations({ data, type }) {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function Operations({ data, type }) {
   } else if (type === "categories") {
     title = "Delete category";
     text = "Are you sure you want to delete this category?";
+  } else if (type === "goals") {
+    title = "Delete goal";
+    text = "Are you sure you want to delete this goal?";
   }
 
   function handleDelete() {
@@ -55,6 +59,11 @@ function Operations({ data, type }) {
       });
     } else if (type === "categories") {
       dispatch(deleteCategoryAsync(data.id)).then(() => {
+        setLoading(false);
+        setShowModal(false);
+      });
+    } else if (type === "goals") {
+      dispatch(deleteGoalAsync(data.id)).then(() => {
         setLoading(false);
         setShowModal(false);
       });
@@ -92,9 +101,11 @@ function Operations({ data, type }) {
     <div>
       <div>
         <div className="flex flex-row text-lg text-gray-600 gap-2">
-          <div>
-            <RiEdit2Fill className="cursor-pointer" onClick={handleEdit} />
-          </div>
+          {type !== "goals" && (
+            <div>
+              <RiEdit2Fill className="cursor-pointer" onClick={handleEdit} />
+            </div>
+          )}
           <div>
             <MdDelete className="cursor-pointer" onClick={handleDelete} />
           </div>

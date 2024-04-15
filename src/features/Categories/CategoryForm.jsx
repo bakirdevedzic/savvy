@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategoryAsync, editCategoryAsync } from "./categoriesSlice";
 import Spinner from "../../ui/Spinner";
+import ButtonConfirm from "../../ui/ButtonConfirm";
 
 function CategoryForm({ onClose, categoryToEdit = {} }) {
   const { id: editId, ...editValues } = categoryToEdit;
@@ -90,18 +91,7 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
         </FormRow>
       )}
 
-      <div className="flex justify-end mt-2">
-        <Button type="base">
-          {status === "loading" ? (
-            <Spinner />
-          ) : (
-            <div className="flex flex-row items-center">
-              <IoAddCircle />
-              Submit
-            </div>
-          )}
-        </Button>
-      </div>
+      <ButtonConfirm status={status} />
     </form>
   );
 }
