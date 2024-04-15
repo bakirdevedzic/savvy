@@ -35,6 +35,7 @@ function GoalForm({ onClose }) {
       <FormRow label="Goal*" error={errors?.name?.message}>
         <input
           type="text"
+          maxLength="50"
           placeholder="Name of goal"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
           {...register("name", { required: "Goal is required!" })}
@@ -45,6 +46,7 @@ function GoalForm({ onClose }) {
         <input
           type="number"
           name="money"
+          min="1"
           {...register("goal_amount", {
             required: "Amount is required!",
             min: {

@@ -6,20 +6,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTransactionAsync, editTransactionAsync } from "./transactionsSlice";
 import Spinner from "../../ui/Spinner";
 import ButtonConfirm from "../../ui/ButtonConfirm";
+import { useState } from "react";
+import { getIncomeCategories } from "../Categories/categoriesSlice";
+import { getExpenseCategories } from "../Categories/categoriesSlice";
 
 function TransactionsForm({ transactionToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = transactionToEdit;
   const isEditSession = Boolean(editId);
+  const [typeClicked, setTypeClicked] = useState();
 
   const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
+  const incomeCategories = useSelector(getIncomeCategories);
+  const expenseCategories = useSelector(getExpenseCategories);
+
   const dispatch = useDispatch();
   const status = useSelector((state) => state.transactions.status);
 
   const onSubmit = async (data) => {
+    console.log(data);
     if (isEditSession) {
       await dispatch(editTransactionAsync({ ...data, id: editId }));
     } else {
@@ -46,6 +54,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
       <FormRow label="Name*" error={errors?.name?.message}>
         <input
           type="text"
+          maxLength="35"
           placeholder="Name of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
           {...register("name", { required: "Name is required!" })}
@@ -61,6 +70,9 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
               defaultChecked={transactionToEdit.type === "INCOME"} //
               type="radio"
               defaultValue="INCOME"
+              onChange={(e) => {
+                setTypeClicked(e.target.value);
+              }}
               name="type"
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -79,6 +91,9 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
               defaultChecked={transactionToEdit.type === "EXPENSE"} //
               type="radio"
               defaultValue="EXPENSE"
+              onChange={(e) => {
+                setTypeClicked(e.target.value);
+              }}
               name="type"
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
@@ -92,10 +107,32 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
         </div>
       </FormRow>
 
+      <FormRow label="Category*" error={errors?.category_id?.message}>
+        <select
+          className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
+          {...register("category_id", { required: "Category is required!" })}
+        >
+          <option value="">Select category</option>
+          {typeClicked === "INCOME" &&
+            incomeCategories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          {typeClicked === "EXPENSE" &&
+            expenseCategories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+        </select>
+      </FormRow>
+
       <FormRow label="Amount*" error={errors?.amount?.message}>
         <input
           type="number"
           name="money"
+          min="1"
           step="0.01"
           {...register("amount", {
             required: "Amount is required!",
@@ -112,6 +149,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
       <FormRow label="Description">
         <textarea
           type="textarea"
+          maxLength="50"
           {...register("description")}
           placeholder="Description of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-24 w-72 p-2"
