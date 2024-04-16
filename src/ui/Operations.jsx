@@ -2,7 +2,10 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 
 import { useDispatch } from "react-redux";
-import { deleteTransactionAsync } from "../features/Transactions/transactionsSlice";
+import {
+  deleteCategoryFromTransactions,
+  deleteTransactionAsync,
+} from "../features/Transactions/transactionsSlice";
 import { useState } from "react";
 import Modal from "./Modal";
 import TransactionsForm from "../features/Transactions/TransactionsForm";
@@ -61,6 +64,7 @@ function Operations({ data, type }) {
       dispatch(deleteCategoryAsync(data.id)).then(() => {
         setLoading(false);
         setShowModal(false);
+        dispatch(deleteCategoryFromTransactions(data.id));
       });
     } else if (type === "goals") {
       dispatch(deleteGoalAsync(data.id)).then(() => {

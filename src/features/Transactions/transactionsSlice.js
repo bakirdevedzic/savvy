@@ -61,6 +61,19 @@ const transactionsSlice = createSlice({
         return transaction;
       });
     },
+    deleteCategoryFromTransactions(state, action) {
+      const deletedCategoryId = action.payload;
+      state.transactions = state.transactions?.map((transaction) => {
+        if (transaction.category_id === deletedCategoryId) {
+          return {
+            ...transaction,
+            category_id: null,
+            categories: undefined, // Delete the entire categories object
+          };
+        }
+        return transaction;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -125,6 +138,7 @@ const transactionsSlice = createSlice({
 });
 
 export default transactionsSlice.reducer;
-export const { updateCategoryName } = transactionsSlice.actions;
+export const { updateCategoryName, deleteCategoryFromTransactions } =
+  transactionsSlice.actions;
 
 export const getTransactions = (state) => state.transactions.transactions;
