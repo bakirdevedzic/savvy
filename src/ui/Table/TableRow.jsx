@@ -9,9 +9,7 @@ function renderCell(data, data2) {
           key={data2.key}
           className="p-3 font-poppins  text-sm text-gray-700 whitespace-nowrap"
         >
-          {data[data2.key]?.length > 50
-            ? data[data2.key].slice(0, 50) + "..."
-            : data[data2.key]}
+          {data[data2.key]}
         </td>
       );
     case "number":
@@ -76,6 +74,17 @@ function renderCell(data, data2) {
           <Operations data={data} type={data2.dataType} />
         </td>
       );
+    case "category":
+      return (
+        <td
+          key={data2.key}
+          className="p-3 font-poppins  text-sm text-gray-700 whitespace-nowrap"
+        >
+          <span className="inline-flex items-center justify-center rounded-md bg-gray-200 px-2 py-1 text-xs font-normal text-black ring-1 ring-inset ring-gray-400 ">
+            {data.category_id ? data.categories.name : "No category"}
+          </span>
+        </td>
+      );
 
     default:
       return null;
@@ -83,6 +92,7 @@ function renderCell(data, data2) {
 }
 
 function TableRow({ data, headData }) {
+  console.log("data", data);
   return (
     <tr className="odd:bg-white even:bg-gray-200 hover:bg-blue-200 transition-all	">
       {headData.map((data2) => renderCell(data, data2))}
