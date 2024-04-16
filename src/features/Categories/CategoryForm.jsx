@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCategoryAsync, editCategoryAsync } from "./categoriesSlice";
 import Spinner from "../../ui/Spinner";
 import ButtonConfirm from "../../ui/ButtonConfirm";
+import { updateCategoryName } from "../Transactions/transactionsSlice";
 
 function CategoryForm({ onClose, categoryToEdit = {} }) {
   const { id: editId, ...editValues } = categoryToEdit;
@@ -23,6 +24,7 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
   const onSubmit = async (data) => {
     if (isEditSession) {
       await dispatch(editCategoryAsync({ ...data, id: editId }));
+      dispatch(updateCategoryName({ id: editId, name: data.name }));
     } else {
       await dispatch(addCategoryAsync(data));
     }
@@ -46,7 +48,7 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
       <FormRow label="Name*" error={errors?.name?.message}>
         <input
           type="text"
-          maxLength="30"
+          maxLength="25"
           placeholder="Name of category"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
           {...register("name", { required: "Name of category is required!" })}

@@ -7,10 +7,10 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 
-function Table({ headData, bodyData }) {
+function Table({ headData, bodyData, rowsPerPage = 10 }) {
   const [parent] = useAutoAnimate();
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+
   const lastIndex = currentPage * rowsPerPage;
   const firstIndex = lastIndex - rowsPerPage;
   const currentData = bodyData?.slice(firstIndex, lastIndex);

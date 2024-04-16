@@ -19,7 +19,7 @@ function IncomeCategoriesTable({ categories }) {
     },
   ];
 
-  return <Table headData={headData} bodyData={categories} />;
+  return <Table headData={headData} bodyData={categories} rowsPerPage={5} />;
 }
 
 export default IncomeCategoriesTable;

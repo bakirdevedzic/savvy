@@ -15,7 +15,6 @@ export async function fetchTransactions() {
     throw new Error("Transactions could not be loaded");
   }
   console.log(data);
-
   return data;
 }
 
@@ -42,7 +41,6 @@ export async function addTransaction(newTransaction) {
   if (fetchError) {
     throw new Error("Error fetching inserted transaction");
   }
-  console.log(transactionWithCategory);
 
   return [transactionWithCategory]; // This includes the category name
 }
@@ -58,6 +56,7 @@ export async function deleteTransaction(id) {
 }
 
 export async function editTransaction(editedTransaction) {
+  delete editedTransaction.categories;
   const { data, error } = await supabase
     .from("transactions")
     .update(editedTransaction)
@@ -68,5 +67,19 @@ export async function editTransaction(editedTransaction) {
     throw new Error("Transaction could not be edited");
   }
 
-  return data[0];
+  // Get the inserted transaction ID (assuming there's an ID column)
+  const insertedTransactionId = data[0].id;
+
+  // Perform a separate query to fetch the inserted transaction with category name
+  const { data: transactionWithCategory, error: fetchError } = await supabase
+    .from("transactions")
+    .select(`*, categories (id, name)`)
+    .eq("id", insertedTransactionId)
+    .single();
+
+  if (fetchError) {
+    throw new Error("Error fetching edited transaction");
+  }
+
+  return transactionWithCategory;
 }

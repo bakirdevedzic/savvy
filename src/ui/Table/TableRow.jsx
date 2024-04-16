@@ -92,7 +92,6 @@ function renderCell(data, data2) {
 }
 
 function TableRow({ data, headData }) {
-  console.log("data", data);
   return (
     <tr className="odd:bg-white even:bg-gray-200 hover:bg-blue-200 transition-all	">
       {headData.map((data2) => renderCell(data, data2))}

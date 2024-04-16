@@ -48,7 +48,20 @@ const initialState = {
 const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
-  reducers: {},
+  reducers: {
+    updateCategoryName(state, action) {
+      const { id: transactionId, name: newCategoryName } = action.payload;
+      state.transactions = state.transactions?.map((transaction) => {
+        if (transaction.category_id === transactionId) {
+          return {
+            ...transaction,
+            categories: { ...transaction.categories, name: newCategoryName },
+          };
+        }
+        return transaction;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTransactionsAsync.pending, (state) => {
@@ -96,6 +109,7 @@ const transactionsSlice = createSlice({
       .addCase(editTransactionAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Transaction edited successfully");
+        console.log("action.payload", action.payload);
         const editedIndex = state.transactions.findIndex(
           (t) => t.id === action.payload.id
         );
@@ -111,5 +125,6 @@ const transactionsSlice = createSlice({
 });
 
 export default transactionsSlice.reducer;
+export const { updateCategoryName } = transactionsSlice.actions;
 
 export const getTransactions = (state) => state.transactions.transactions;
