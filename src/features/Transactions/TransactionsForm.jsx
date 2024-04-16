@@ -54,7 +54,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
       <FormRow label="Name*" error={errors?.name?.message}>
         <input
           type="text"
-          maxLength="35"
+          maxLength="30"
           placeholder="Name of transaction"
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
           {...register("name", { required: "Name is required!" })}
