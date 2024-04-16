@@ -3,7 +3,12 @@ import supabase from "./supabase";
 export async function fetchTransactions() {
   let { data, error } = await supabase
     .from("transactions")
-    .select("*")
+    .select(
+      `
+    *,
+    categories (id, name)
+  `
+    )
     .order("date", { ascending: false });
 
   if (error) {
@@ -12,6 +17,19 @@ export async function fetchTransactions() {
 
   return data;
 }
+
+// export async function addTransaction(newTransaction) {
+//   const { data, error } = await supabase
+//     .from("transactions")
+//     .insert([newTransaction])
+//     .select();
+
+//   if (error) {
+//     throw new Error("Error uploading transaction");
+//   }
+
+//   return data;
+// }
 
 export async function addTransaction(newTransaction) {
   const { data, error } = await supabase
@@ -23,7 +41,22 @@ export async function addTransaction(newTransaction) {
     throw new Error("Error uploading transaction");
   }
 
-  return data;
+  // Get the inserted transaction ID (assuming there's an ID column)
+  const insertedTransactionId = data[0].id;
+
+  // Perform a separate query to fetch the inserted transaction with category name
+  const { data: transactionWithCategory, error: fetchError } = await supabase
+    .from("transactions")
+    .select(`*, categories (id, name)`)
+    .eq("id", insertedTransactionId)
+    .single();
+
+  if (fetchError) {
+    throw new Error("Error fetching inserted transaction");
+  }
+  console.log(transactionWithCategory);
+
+  return [transactionWithCategory]; // This includes the category name
 }
 
 export async function deleteTransaction(id) {

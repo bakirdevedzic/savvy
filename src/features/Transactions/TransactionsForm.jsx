@@ -107,10 +107,10 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
         </div>
       </FormRow>
 
-      <FormRow label="Category*" error={errors?.category_id?.message}>
+      <FormRow label="Category" error={errors?.category_id?.message}>
         <select
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-          {...register("category_id", { required: "Category is required!" })}
+          {...register("category_id")}
         >
           <option value="">Select category</option>
           {typeClicked === "INCOME" &&
