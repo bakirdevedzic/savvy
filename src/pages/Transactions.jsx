@@ -11,8 +11,20 @@ import { useState } from "react";
 
 function Transactions() {
   const [showModal, setShowModal] = useState(false);
+  const [filter, setFilter] = useState("All");
 
+  console.log("filter", filter);
   const transactions = useSelector(getTransactions);
+
+  const filteredTransactions = transactions?.filter((transaction) => {
+    if (filter === "All") {
+      return true;
+    } else if (filter === "Incomes") {
+      return transaction.type === "INCOME";
+    } else if (filter === "Expenses") {
+      return transaction.type === "EXPENSE";
+    }
+  });
 
   const handleOnClose = () => {
     setShowModal(false);
@@ -29,9 +41,9 @@ function Transactions() {
             Add new
           </Button>
         </div>
-        <TransactionsFilters />
+        <TransactionsFilters filter={filter} setFilter={setFilter} />
       </div>
-      <TransactionsTable transactions={transactions} />
+      <TransactionsTable transactions={filteredTransactions} />
       <Modal
         visible={showModal}
         onClose={handleOnClose}

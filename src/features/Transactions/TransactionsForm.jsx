@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import Button from "../../ui/Button";
+
 import FormRow from "../../ui/FormRow";
-import { IoAddCircle } from "react-icons/io5";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addTransactionAsync, editTransactionAsync } from "./transactionsSlice";
-import Spinner from "../../ui/Spinner";
+
 import ButtonConfirm from "../../ui/ButtonConfirm";
 import { useState } from "react";
 import { getIncomeCategories } from "../Categories/categoriesSlice";
@@ -13,7 +13,9 @@ import { getExpenseCategories } from "../Categories/categoriesSlice";
 function TransactionsForm({ transactionToEdit = {}, onClose }) {
   const { id: editId, ...editValues } = transactionToEdit;
   const isEditSession = Boolean(editId);
-  const [typeClicked, setTypeClicked] = useState();
+  const [typeClicked, setTypeClicked] = useState(() => {
+    return isEditSession ? transactionToEdit.type : "";
+  });
 
   const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: isEditSession ? editValues : {},
@@ -112,6 +114,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
           {...register("category_id")}
         >
           <option value="">Select category</option>
+
           {typeClicked === "INCOME" &&
             incomeCategories.map((category) => (
               <option key={category.id} value={category.id}>
