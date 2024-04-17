@@ -8,15 +8,21 @@ import TransactionsForm from "../features/Transactions/TransactionsForm";
 import { useSelector } from "react-redux";
 import { getTransactions } from "../features/Transactions/transactionsSlice";
 import { useState } from "react";
+import { formatDate } from "../utils/helpers";
 
 function Transactions() {
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState("All");
+  const [dateFilter, setDateFilter] = useState("1970-01-01");
 
-  console.log("filter", filter);
+  if (dateFilter === "") setDateFilter("1970-01-01");
+  console.log("dateFilter", dateFilter);
+  console.log("formated", formatDate(dateFilter));
   const transactions = useSelector(getTransactions);
 
-  const filteredTransactions = transactions?.filter((transaction) => {
+  let filteredTransactions = transactions;
+
+  filteredTransactions = filteredTransactions?.filter((transaction) => {
     if (filter === "All") {
       return true;
     } else if (filter === "Incomes") {
@@ -24,6 +30,13 @@ function Transactions() {
     } else if (filter === "Expenses") {
       return transaction.type === "EXPENSE";
     }
+  });
+
+  filteredTransactions = filteredTransactions?.filter((transaction) => {
+    if (dateFilter === "1970-01-01") {
+      return true;
+    }
+    return formatDate(transaction.date) === formatDate(dateFilter);
   });
 
   const handleOnClose = () => {
@@ -41,7 +54,13 @@ function Transactions() {
             Add new
           </Button>
         </div>
-        <TransactionsFilters filter={filter} setFilter={setFilter} />
+
+        <TransactionsFilters
+          filter={filter}
+          setFilter={setFilter}
+          dateFilter={dateFilter}
+          setDateFilter={setDateFilter}
+        />
       </div>
       <TransactionsTable transactions={filteredTransactions} />
       <Modal

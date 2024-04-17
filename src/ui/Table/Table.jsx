@@ -42,7 +42,7 @@ function Table({ headData, bodyData, rowsPerPage = 10 }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-300" ref={parent}>
-            {currentData ? (
+            {currentData && currentData?.length > 0 ? (
               currentData.map((data, i) => {
                 return <TableRow data={data} key={i} headData={headData} />;
               })

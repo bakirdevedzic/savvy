@@ -1,4 +1,4 @@
-function TransactionsFilters({ filter, setFilter }) {
+function TransactionsFilters({ filter, setFilter, dateFilter, setDateFilter }) {
   return (
     <div className="flex flex-cols justify-between items-center gap-3 h-[55px] sm:w-[100%] sm:justify-center us:grid us:grid-rows-2 us:gap-3 us:h-auto us:justify-items-center us:items-center">
       <div className="grid grid-cols-3 w-[300px] bg-primary-white-2 rounded-lg h-[70%]">
@@ -33,7 +33,9 @@ function TransactionsFilters({ filter, setFilter }) {
         type="date"
         id="start"
         name="trip-start"
-        value="2018-07-22"
+        placeholder="dd-mm-yyyy"
+        value={dateFilter === "1970-01-01" ? "" : dateFilter}
+        onChange={(e) => setDateFilter(e.target.value)}
       />
     </div>
   );
