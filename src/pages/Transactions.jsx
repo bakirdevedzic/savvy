@@ -16,8 +16,7 @@ function Transactions() {
   const [dateFilter, setDateFilter] = useState("1970-01-01");
 
   if (dateFilter === "") setDateFilter("1970-01-01");
-  console.log("dateFilter", dateFilter);
-  console.log("formated", formatDate(dateFilter));
+
   const transactions = useSelector(getTransactions);
 
   let filteredTransactions = transactions;

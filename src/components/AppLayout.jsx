@@ -21,12 +21,15 @@ function AppLayout() {
 
   const transactions = useSelector(getTransactions);
   useEffect(() => {
-    if (!transactions) {
-      dispatch(fetchTransactionsAsync());
-      dispatch(fetchBudgetsAsync());
-      dispatch(fetchCategoriesAsync());
-      dispatch(fetchGoalsAsync());
+    async function getData() {
+      if (!transactions) {
+        await dispatch(fetchTransactionsAsync());
+        await dispatch(fetchBudgetsAsync());
+        await dispatch(fetchCategoriesAsync());
+        await dispatch(fetchGoalsAsync());
+      }
     }
+    getData();
   }, [dispatch, transactions]);
 
   return (

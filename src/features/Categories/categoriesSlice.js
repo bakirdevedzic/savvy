@@ -59,6 +59,10 @@ const categoriesSlice = createSlice({
       })
       .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
+        action.payload.forEach((category) => {
+          category.transactions = 0;
+          category.amount = 0;
+        });
         state.incomeCategories = action.payload.filter(
           (categorie) => categorie.type === "INCOME"
         );
@@ -137,6 +141,8 @@ const categoriesSlice = createSlice({
       });
   },
 });
+
+export const { calculateCategoriesStats } = categoriesSlice.actions;
 
 export const getIncomeCategories = (state) => state.categories.incomeCategories;
 export const getExpenseCategories = (state) =>

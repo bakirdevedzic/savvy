@@ -1,21 +1,28 @@
 import Button from "../ui/Button";
 import { MdAddBox } from "react-icons/md";
 import Modal from "../ui/Modal";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import IncomeCategoriesTable from "../features/Categories/IncomeCategoriesTable";
 import ExpenseCategoriesTable from "../features/Categories/ExpenseCategoriesTable";
 import CategoryForm from "../features/Categories/CategoryForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getExpenseCategories,
   getIncomeCategories,
 } from "../features/Categories/categoriesSlice";
+import { getTransactions } from "../features/Transactions/transactionsSlice";
+
+import calculateCategoriesStats from "../utils/categoryHelpers";
 
 function Categories() {
   const [showModal, setShowModal] = useState(false);
 
-  const incomeCategories = useSelector(getIncomeCategories);
-  const expenseCategories = useSelector(getExpenseCategories);
+  const { income: incomeCategories, expense: expenseCategories } =
+    calculateCategoriesStats(
+      useSelector(getTransactions),
+      useSelector(getIncomeCategories),
+      useSelector(getExpenseCategories)
+    );
 
   const handleOnClose = () => {
     setShowModal(false);
