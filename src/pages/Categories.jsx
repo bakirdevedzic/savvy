@@ -1,11 +1,11 @@
 import Button from "../ui/Button";
 import { MdAddBox } from "react-icons/md";
 import Modal from "../ui/Modal";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import IncomeCategoriesTable from "../features/Categories/IncomeCategoriesTable";
 import ExpenseCategoriesTable from "../features/Categories/ExpenseCategoriesTable";
 import CategoryForm from "../features/Categories/CategoryForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   getExpenseCategories,
   getIncomeCategories,

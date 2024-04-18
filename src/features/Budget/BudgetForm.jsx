@@ -17,10 +17,15 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
+  const curMonth = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}`;
 
   const dispatch = useDispatch();
   const status = useSelector((state) => state.budgets.status);
   const budgets = useSelector(getBudgets);
+  const currentBudget = useSelector((state) => state.budgets.currentBudget);
+  const newCurrentBudget = currentBudget
+    ? currentBudget
+    : { month: "", planned_amount: 0 };
 
   const onSubmit = async (data) => {
     if (!isEditSession) {
@@ -37,7 +42,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
   };
 
   const isMonthAvailable = (selectedMonth) => {
-    return !checkIfMonthIsUnique(budgets, selectedMonth);
+    return !checkIfMonthIsUnique([...budgets, newCurrentBudget], selectedMonth);
   };
   return (
     <form
@@ -55,6 +60,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
         <FormRow label="Month*" error={errors?.month?.message}>
           <input
             type="month"
+            min={curMonth}
             {...register("month", {
               required: "Month is required!",
               validate: (value) =>

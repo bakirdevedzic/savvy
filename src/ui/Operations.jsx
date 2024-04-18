@@ -105,7 +105,7 @@ function Operations({ data, type }) {
     <div>
       <div>
         <div className="flex flex-row text-lg text-gray-600 gap-2">
-          {type !== "goals" && (
+          {type !== "goals" && type !== "budgets" && (
             <div>
               <RiEdit2Fill className="cursor-pointer" onClick={handleEdit} />
             </div>

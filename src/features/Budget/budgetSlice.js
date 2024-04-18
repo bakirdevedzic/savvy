@@ -6,6 +6,7 @@ import {
   fetchBudgets,
 } from "../../services/apiBudget";
 import toast from "react-hot-toast";
+import { isFromLastMonth } from "../../utils/budgetHelpers";
 
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
@@ -49,7 +50,21 @@ const initialState = {
 const budgetsSlice = createSlice({
   name: "budgets",
   initialState,
-  reducers: {},
+  reducers: {
+    setLastMonthStats(state, action) {
+      state.budgets[action.payload.id] = {
+        ...state.budgets[action.payload.id],
+        spent_amount: action.payload.spentAmount,
+        saved_amount:
+          state.budgets[action.payload.id].planned_amount -
+            action.payload.spentAmount >
+          0
+            ? state.budgets[action.payload.id].planned_amount -
+              action.payload.spentAmount
+            : 0,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBudgetsAsync.pending, (state) => {
@@ -70,6 +85,9 @@ const budgetsSlice = createSlice({
         });
         if (currentBudget) {
           state.currentBudget = currentBudget;
+          state.budgets = state.budgets.filter(
+            (budget) => budget.id !== currentBudget.id
+          );
         } else {
           state.currentBudget = null;
         }
@@ -83,8 +101,16 @@ const budgetsSlice = createSlice({
       })
       .addCase(addBudgetAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.budgets.push(action.payload);
-        state.budgets.sort((a, b) => new Date(b.month) - new Date(a.month));
+        const budgetDate = new Date(action.payload.month);
+        if (
+          budgetDate.getFullYear() === new Date().getFullYear() &&
+          budgetDate.getMonth() === new Date().getMonth()
+        ) {
+          state.currentBudget = action.payload;
+        } else {
+          state.budgets.push(action.payload);
+          state.budgets.sort((a, b) => new Date(b.month) - new Date(a.month));
+        }
         toast.success("Budget added successfully");
       })
       .addCase(addBudgetAsync.rejected, (state, action) => {
@@ -97,12 +123,7 @@ const budgetsSlice = createSlice({
       .addCase(editBudgetAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Budget edited successfully");
-        const editedIndex = state.budgets.findIndex(
-          (b) => b.id === action.payload.id
-        );
-        if (editedIndex !== -1) {
-          state.budgets[editedIndex] = action.payload;
-        }
+        state.currentBudget = action.payload;
       })
       .addCase(editBudgetAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -129,6 +150,8 @@ const budgetsSlice = createSlice({
       });
   },
 });
+
+export const { setLastMonthStats } = budgetsSlice.actions;
 
 export const getBudgets = (state) => state.budgets.budgets;
 export const getCurrentBudget = (state) => state.budgets.currentBudget;

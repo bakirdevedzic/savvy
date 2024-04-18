@@ -14,7 +14,7 @@ export async function fetchTransactions() {
   if (error) {
     throw new Error("Transactions could not be loaded");
   }
-  console.log(data);
+
   return data;
 }
 
