@@ -3,6 +3,7 @@ import Button from "../ui/Button";
 
 import IncomeStatistics from "../features/Statistics/Incomes And Expenses/IncomesStatistics";
 import ExpenseStatistics from "../features/Statistics/Incomes And Expenses/ExpenseStatistics";
+import SpendingStats from "../features/Statistics/Spending/SpendingStats";
 
 function Statistics() {
   const [stats, setStats] = useState("None");
@@ -45,6 +46,7 @@ function Statistics() {
           <div className="bg-white rounded-lg shadow p-4 overflow-auto w-[600px] us:w-[auto]">
             {stats === "Incomes" && <IncomeStatistics />}
             {stats === "Expenses" && <ExpenseStatistics />}
+            {stats === "Spending" && <SpendingStats />}
           </div>
         </div>
       )}
