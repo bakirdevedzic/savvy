@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../ui/Button";
-import IncomesAndExpensesStatistics from "../features/Statistics/IncomesAndExpensesStatistics";
+import IncomesAndExpensesStatistics from "../features/Statistics/Incomes And Expenses/IncomesAndExpensesStatistics";
 
 function Statistics() {
   const [stats, setStats] = useState("None");
@@ -34,7 +34,9 @@ function Statistics() {
           </Button>
         </div>
       </div>
-      <IncomesAndExpensesStatistics />
+      <div className="bg-white rounded-lg shadow p-4 overflow-auto">
+        <IncomesAndExpensesStatistics />
+      </div>
     </div>
   );
 }
