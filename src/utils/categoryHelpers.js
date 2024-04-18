@@ -1,14 +1,15 @@
 const calculateCategoryStats = (
   transactions,
   incomeCategories,
-  expenseCategories
+  expenseCategories,
+  days
 ) => {
   const today = new Date();
-  const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const periodOfTime = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
 
   const filteredTransactions = transactions.reduce((acc, transaction) => {
     const transactionDate = new Date(transaction.date);
-    if (transactionDate >= thirtyDaysAgo) {
+    if (transactionDate >= periodOfTime) {
       acc.push(transaction);
     }
     return acc;

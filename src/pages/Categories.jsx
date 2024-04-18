@@ -21,7 +21,8 @@ function Categories() {
     calculateCategoriesStats(
       useSelector(getTransactions),
       useSelector(getIncomeCategories),
-      useSelector(getExpenseCategories)
+      useSelector(getExpenseCategories),
+      30
     );
 
   const handleOnClose = () => {
