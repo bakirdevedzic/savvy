@@ -5,10 +5,10 @@ import IncomeStatistics from "../features/Statistics/Incomes And Expenses/Income
 import ExpenseStatistics from "../features/Statistics/Incomes And Expenses/ExpenseStatistics";
 import SpendingStats from "../features/Statistics/Spending/SpendingStats";
 import TypesStatistics from "../features/Statistics/Types/TypesStatistics";
+import BudgetsStats from "../features/Statistics/Budgets/BudgetsStats";
 
 function Statistics() {
   const [stats, setStats] = useState("None");
-  console.log(stats);
   return (
     <div className="max-w-[1700px] w-[100%] grid grid-rows-[auto_auto] gap-5">
       <div className="flex flex-wrap gap-2">
@@ -49,6 +49,7 @@ function Statistics() {
             {stats === "Expenses" && <ExpenseStatistics />}
             {stats === "Spending" && <SpendingStats />}
             {stats === "Type" && <TypesStatistics />}
+            {stats === "Budgets" && <BudgetsStats />}
           </div>
         </div>
       )}

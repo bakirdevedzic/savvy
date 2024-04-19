@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { getTransactions } from "../../Transactions/transactionsSlice";
 import { getIncomeCategories } from "../../Categories/categoriesSlice";
 
-function IncomeStatistics({ type }) {
+function IncomeStatistics() {
   const [period, setPeriod] = useState(30);
   const transactions = useSelector(getTransactions);
   const incomeCategories = useSelector(getIncomeCategories);
