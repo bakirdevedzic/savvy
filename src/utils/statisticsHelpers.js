@@ -105,3 +105,7 @@ export const generateChartData = (transactions, firstMonth, lastMonth) => {
 
   return data;
 };
+
+export const calculateTotalAmount = (arrayOfObjects) => {
+  return arrayOfObjects.reduce((total, item) => total + item.amount, 0);
+};
