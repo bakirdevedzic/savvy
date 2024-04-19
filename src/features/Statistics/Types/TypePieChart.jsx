@@ -1,4 +1,5 @@
 import Chart from "react-google-charts";
+import Spinner from "../../../ui/Spinner";
 
 function TypePieChart({ data }) {
   const options = {
@@ -15,6 +16,11 @@ function TypePieChart({ data }) {
         height="400px"
         data={data}
         options={options}
+        loader={
+          <div className="flex justify-center w-full">
+            <Spinner />
+          </div>
+        }
       />
     </div>
   );

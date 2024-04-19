@@ -1,4 +1,5 @@
 import Chart from "react-google-charts";
+import Spinner from "../../../ui/Spinner";
 
 function IAEPieChart({ data }) {
   const formattedData = data.map(({ name, amount }) => [name, amount]);
@@ -11,6 +12,11 @@ function IAEPieChart({ data }) {
         data={data2}
         width={"100%"}
         height={"400px"}
+        loader={
+          <div className="flex justify-center w-full">
+            <Spinner />
+          </div>
+        }
       />
     </div>
   );
