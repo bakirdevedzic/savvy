@@ -10,6 +10,8 @@ function BudgetsBar({ data }) {
     vAxis: {
       title: "Month",
     },
+    legend: { position: "top", alignment: "start" },
+    colors: ["#0984e3", "#2ecc71", "#ff7675"],
   };
   return (
     <div>

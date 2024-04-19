@@ -29,7 +29,6 @@ function TypesStatistics() {
   );
 
   data.push(["Expenses", expenseData], ["Incomes", incomeData]);
-  console.log(data);
 
   return (
     <div className="flex flex-col ">

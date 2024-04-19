@@ -10,7 +10,6 @@ function SpendingStats() {
   const lastMonth = new Date(transactions[0].date);
 
   const data = generateChartData(transactions, firstMonth, lastMonth);
-  console.log(data);
 
   return (
     <div className="flex flex-col ">

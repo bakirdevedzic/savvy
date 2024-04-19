@@ -5,7 +5,9 @@ function TypePieChart({ data }) {
   const options = {
     pieHole: 0.4,
     is3D: false,
-    color: ["#3248F2", "#171215"],
+    colors: ["#ff7675", "#2ecc71"],
+
+    legend: { position: "top", alignment: "start" },
   };
 
   return (
