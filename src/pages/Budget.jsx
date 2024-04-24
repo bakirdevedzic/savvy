@@ -84,7 +84,7 @@ function Budget() {
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
-        <InfoCard label="Total amount" amount={45685} />
+        <InfoCard label="Balance" amount={45685} />
         <InfoCard
           label="Budget for this month"
           amount={currentBudget2?.planned_amount}

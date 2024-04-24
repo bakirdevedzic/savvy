@@ -20,8 +20,7 @@ export default {
       screens: {
         "2xl": { min: "1381px" },
         xl: { max: "1380px" },
-        // => @media (max-width: 1535px) { ... }
-        //IZNAD 1025 IDE OBAVEZNI SIDEBAR
+
         md: { max: "1025px" },
         // => @media (max-width: 1025px) { ... }
 
