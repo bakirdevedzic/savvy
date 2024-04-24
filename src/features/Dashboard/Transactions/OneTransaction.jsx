@@ -7,14 +7,16 @@ function OneTransaction({ transaction }) {
       : "bg-red-200 border-red-500 text-red-700";
 
   return (
-    <div className="rounded-xl font-poppins bg-slate-100 p-3 border-black flex flex-row justify-between gap-1 flex-wrap m-2 min-h-[50px] items-center ">
-      <div className="w-[40rem] flex justify-center">{transaction.name}</div>
+    <div className="rounded-xl font-poppins bg-slate-100 p-3 border-black flex flex-row justify-between gap-1 flex-wrap m-2 min-h-[50px] items-center">
+      <div className="w-[40rem] flex justify-center font-semibold">
+        {transaction.name}
+      </div>
       <div
-        className={`w-[10rem] flex justify-center rounded-lg border ${typeBackground}`}
+        className={`w-[5rem] flex justify-center rounded-lg border ${typeBackground}`}
       >
         {transaction.type}
       </div>
-      <div className="w-[10rem] flex justify-end font-bold">
+      <div className="w-[5rem] flex justify-end font-bold">
         {formatCurrency(transaction.amount)}
       </div>
     </div>
