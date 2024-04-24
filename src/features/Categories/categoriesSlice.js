@@ -79,7 +79,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(addCategoryAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-
+        action.payload = { ...action.payload, transactions: 0, amount: 0 };
         if (action.payload.type === "INCOME") {
           state.incomeCategories.unshift(action.payload);
         } else if (action.payload.type === "EXPENSE") {
@@ -105,9 +105,10 @@ const categoriesSlice = createSlice({
           (c) => c.id === editedCategory.id
         );
         if (editedIndexIncome !== -1) {
-          state.incomeCategories[editedIndexIncome] = editedCategory;
+          state.incomeCategories[editedIndexIncome].name = editedCategory.name;
         } else if (editedIndexExpense !== -1) {
-          state.expenseCategories[editedIndexExpense] = editedCategory;
+          state.expenseCategories[editedIndexExpense].name =
+            editedCategory.name;
         }
         toast.success("Category edited successfully");
       })

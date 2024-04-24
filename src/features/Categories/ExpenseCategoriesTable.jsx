@@ -19,6 +19,7 @@ function ExpenseCategoriesTable({ categories }) {
     },
   ];
 
+  categories = categories.sort((a, b) => b.amount - a.amount);
   return <Table headData={headData} bodyData={categories} rowsPerPage={5} />;
 }
 

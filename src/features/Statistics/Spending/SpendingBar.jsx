@@ -10,6 +10,16 @@ function SpendingBar({ data }) {
     fontWeight: "700",
   };
 
+  const originalWarn = console.warn;
+
+  console.warn = function (...args) {
+    const arg = args && args[0];
+
+    if (arg && arg.includes("Attempting to load version '51' of Google Charts"))
+      return;
+
+    originalWarn(...args);
+  };
   return (
     <div>
       <Chart

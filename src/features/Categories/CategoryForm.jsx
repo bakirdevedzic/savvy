@@ -1,10 +1,8 @@
-import { IoAddCircle } from "react-icons/io5";
-import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategoryAsync, editCategoryAsync } from "./categoriesSlice";
-import Spinner from "../../ui/Spinner";
+
 import ButtonConfirm from "../../ui/ButtonConfirm";
 import { updateCategoryName } from "../Transactions/transactionsSlice";
 

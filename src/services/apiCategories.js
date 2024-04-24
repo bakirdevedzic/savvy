@@ -27,10 +27,14 @@ export async function addCategory(newCategory) {
 }
 
 export async function editCategory(editedCategory) {
+  console.log(editedCategory);
+  let editedCategoryCopy = { ...editedCategory };
+  delete editedCategoryCopy.amount;
+  delete editedCategoryCopy.transactions;
   const { data, error } = await supabase
     .from("categories")
-    .update(editedCategory)
-    .eq("id", editedCategory.id)
+    .update(editedCategoryCopy)
+    .eq("id", editedCategoryCopy.id)
     .select();
 
   if (error) {
