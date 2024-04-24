@@ -3,11 +3,13 @@ import Spinner from "../../../ui/Spinner";
 
 function SpendingBar({ data }) {
   const options = {
-    legend: { position: "top", alignment: "start" },
+    legend: { position: "top", alignment: "bottom" },
+
     colors: ["#2ecc71", "#ff7675"],
     fontName: "Poppins",
     fontWeight: "700",
   };
+
   return (
     <div>
       <Chart
