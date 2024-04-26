@@ -4,11 +4,11 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function Login() {
   return (
-    <div className="flex flex-row h-[calc(100dvh)] sm:grid sm:grid-rows-[1fr_1fr] sm:pt-10 sm:gap-4  w-full justify-center overflow-auto bg-cover bg-center bg-primary-white-2">
-      <div className=" flex justify-center items-center mt-20 w-[100%] sm:items-end basis-[50%]">
+    <div className="flex flex-row h-[calc(100dvh)]  sm:pt-10 sm:gap-4  w-full justify-center overflow-auto bg-cover bg-center bg-primary-white-2 ">
+      <div className=" flex justify-center items-center mt-20 w-[100%]  basis-[50%] sm:basis-[100%] sm:align-middle">
         <LoginForm />
       </div>
-      <div className=" flex justify-center items-center p-10 basis-[50%] bg-white">
+      <div className=" flex justify-center items-center p-10 basis-[50%] bg-white sm:hidden">
         <div className="grid grid-rows-[max-content] w-[100%] items-center gap-6">
           <OneRow
             title="Effortless budget tracking"

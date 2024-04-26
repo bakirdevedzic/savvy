@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { supabase } from "./supabaseClient"; // Import Supabase client
+import supabase from "../../services/supabase";
 import toast from "react-hot-toast";
 
 export const loginWithMagicLink = createAsyncThunk(
@@ -9,7 +9,7 @@ export const loginWithMagicLink = createAsyncThunk(
       email,
       options: {
         shouldCreateUser: true,
-        // emailRedirectTo: window.location.origin, // Redirect to current origin
+        // emailRedirectTo: window.location.origin,
       },
     });
 
