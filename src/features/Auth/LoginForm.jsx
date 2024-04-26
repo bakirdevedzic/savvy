@@ -2,7 +2,7 @@ import Logo from "../../ui/Logo";
 
 function LoginForm() {
   return (
-    <div className="flex flex-1 flex-col justify-center px-6 py-12 max-w-[350px] us:overflow-auto bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col justify-center px-6 py-12 max-w-[350px] us:overflow-auto bg-white rounded-lg shadow-lg">
       {/*  */}
       <div className="">
         <Logo />
