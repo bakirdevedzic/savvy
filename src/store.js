@@ -4,6 +4,7 @@ import budgetSlice from "./features/Budget/budgetSlice";
 import categoriesSlice from "./features/Categories/categoriesSlice";
 import goalsSlice from "./features/Goals/goalsSlice";
 import authSlice from "./features/Auth/authSlice";
+import userSlice from "./features/User/userSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     categories: categoriesSlice,
     goals: goalsSlice,
     auth: authSlice,
+    user: userSlice,
   },
 });
 

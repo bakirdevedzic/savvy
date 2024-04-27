@@ -7,6 +7,8 @@ import { generateChartData } from "../utils/statisticsHelpers";
 import Chart from "react-google-charts";
 import { calculateMonthSpendings } from "../utils/budgetHelpers";
 
+import supabase from "../services/supabase";
+
 function Dashboard() {
   const options = {
     pieHole: 0.4,

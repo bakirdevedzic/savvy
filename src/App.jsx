@@ -1,4 +1,11 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -12,13 +19,30 @@ import Settings from "./pages/Settings";
 import Statistics from "./pages/Statistics";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import supabase from "./services/supabase";
+import { getLoggedIn, login, logout } from "./features/Auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserAsync } from "./features/User/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((_, session) => {
+      if (session && session?.user) {
+        dispatch(login(session.user));
+        dispatch(fetchUserAsync(session.user.id));
+      } else dispatch(logout());
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
+
         <Route
           path="/app"
           element={
@@ -36,6 +60,7 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="statistics" element={<Statistics />} />
         </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Toaster

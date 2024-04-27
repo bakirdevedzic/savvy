@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Sidebar from "../ui/Sidebar";
 import Header from "../ui/Header";
 import { useEffect, useState } from "react";
@@ -12,6 +12,9 @@ import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
 import { fetchGoalsAsync } from "../features/Goals/goalsSlice";
 import Spinner from "../ui/Spinner";
+import supabase from "../services/supabase";
+import { login, logout } from "../features/Auth/authSlice";
+import { fetchUserAsync } from "../features/User/userSlice";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);

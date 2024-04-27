@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../ui/Logo";
-import { getAuthLoading, loginWithMagicLink } from "./authSlice";
+
 import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
+import supabase from "../../services/supabase";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 function LoginForm() {
   const {
@@ -11,12 +13,28 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const dispatch = useDispatch();
-  const loading = useSelector(getAuthLoading);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    dispatch(loginWithMagicLink(data.email));
-    console.log(data);
+    try {
+      const email = data.email;
+      setLoading(true);
+      const { data: loginData, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+        },
+      });
+      setLoading(false);
+      if (loginData) {
+        toast.success("Email sent!");
+      } else if (error) {
+        throw new Error(error.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+    return data;
   };
   const onError = (errors) => {};
 
@@ -67,7 +85,8 @@ function LoginForm() {
             type="submit"
             className="mt-7 flex w-full justify-center rounded-md bg-primary-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-blue"
           >
-            {!loading ? "Sign in" : <Spinner />}
+            {loading === false && "Sign in"}
+            {loading === true && <Spinner />}
           </button>
         </div>
       </form>
