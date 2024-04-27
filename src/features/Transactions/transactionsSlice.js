@@ -9,8 +9,8 @@ import toast from "react-hot-toast";
 
 export const fetchTransactionsAsync = createAsyncThunk(
   "transaction/fetchTransactions",
-  async function () {
-    const response = await fetchTransactions(); // API call to fetch transactions
+  async function (userId) {
+    const response = await fetchTransactions(userId); // API call to fetch transactions
     return response;
   }
 );

@@ -10,8 +10,8 @@ import toast from "react-hot-toast";
 // Async Thunks for Categories
 export const fetchCategoriesAsync = createAsyncThunk(
   "categories/fetchCategories",
-  async () => {
-    const response = await fetchCategories(); // API call to fetch categories
+  async (userId) => {
+    const response = await fetchCategories(userId); // API call to fetch categories
     return response;
   }
 );

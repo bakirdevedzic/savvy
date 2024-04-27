@@ -23,6 +23,7 @@ function LoginForm() {
         email,
         options: {
           shouldCreateUser: true,
+          emailRedirectTo: "http://localhost:5173/app",
         },
       });
       setLoading(false);

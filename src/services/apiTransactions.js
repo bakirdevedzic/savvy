@@ -1,6 +1,7 @@
 import supabase from "./supabase";
 
-export async function fetchTransactions() {
+export async function fetchTransactions(userId) {
+  console.log("userid-api", userId);
   let { data, error } = await supabase
     .from("transactions")
     .select(
@@ -9,6 +10,7 @@ export async function fetchTransactions() {
     categories (id, name)
   `
     )
+    .eq("user_id", userId)
     .order("date", { ascending: false });
 
   if (error) {

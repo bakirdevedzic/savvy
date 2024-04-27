@@ -6,12 +6,11 @@ import {
   fetchBudgets,
 } from "../../services/apiBudget";
 import toast from "react-hot-toast";
-import { isFromLastMonth } from "../../utils/budgetHelpers";
 
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
-  async function () {
-    const response = await fetchBudgets(); // API call to fetch budgets
+  async function (userId) {
+    const response = await fetchBudgets(userId); // API call to fetch budgets
     return response;
   }
 );

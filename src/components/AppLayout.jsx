@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../ui/Sidebar";
 import Header from "../ui/Header";
 import { useEffect, useState } from "react";
@@ -12,9 +12,6 @@ import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
 import { fetchGoalsAsync } from "../features/Goals/goalsSlice";
 import Spinner from "../ui/Spinner";
-import supabase from "../services/supabase";
-import { login, logout } from "../features/Auth/authSlice";
-import { fetchUserAsync } from "../features/User/userSlice";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -24,19 +21,31 @@ function AppLayout() {
   const dispatch = useDispatch();
 
   const transactions = useSelector(getTransactions);
+  const user = useSelector((state) => state.user.user);
+  const status = useSelector((state) => state.user.status);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getData() {
-      if (!transactions) {
-        await dispatch(fetchTransactionsAsync());
-        await dispatch(fetchBudgetsAsync());
-        await dispatch(fetchCategoriesAsync());
-        await dispatch(fetchGoalsAsync());
-      }
+      setLoading(true);
+      console.log("podaci");
+      console.log("userid", user.id);
+      await dispatch(fetchTransactionsAsync(user.id));
+      await dispatch(fetchBudgetsAsync(user.id));
+      await dispatch(fetchCategoriesAsync(user.id));
+      await dispatch(fetchGoalsAsync(user.id));
+      setLoading(false);
     }
-    getData();
-  }, [dispatch, transactions]);
 
+    if (user && user.id) getData();
+  }, [user]);
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-[18rem,1fr] h-[calc(100dvh)] md:flex sm:flex md:flex-col sm:flex-col">
       <Header setShowSidebar={setShowSidebar} />
@@ -47,7 +56,7 @@ function AppLayout() {
         setShowSidebar={setShowSidebar}
       />
       <main className="bg-primary-white-2 col-[2/3]  pt-[2.4rem] pl-[4.8rem] pr-[4.8rem] pb-[6.4rem] sm:pt-[1.6rem] sm:pl-[2.4rem] sm:pr-[2.4rem] md:pt-[1.6rem] md:pl-[2.4rem] md:pr-[2.4rem] flex flex-col items-center">
-        {transactions ? <Outlet /> : <Spinner />}
+        {!loading ? <Outlet /> : <Spinner />}
       </main>
     </div>
   );

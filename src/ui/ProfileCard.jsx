@@ -1,18 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { IoLogOut } from "react-icons/io5";
-import supabase from "../services/supabase";
+
 import { useDispatch } from "react-redux";
-import { logout } from "../features/Auth/authSlice";
+import { logout } from "../services/apiUser";
 
 function ProfileCard() {
   const dispatch = useDispatch();
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
-  }
+
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
-    signOut();
   };
   return (
     <div className="flex justify-center">

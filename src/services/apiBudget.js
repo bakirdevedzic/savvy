@@ -1,9 +1,10 @@
 import supabase from "./supabase";
 
-export async function fetchBudgets() {
+export async function fetchBudgets(userId) {
   let { data, error } = await supabase
     .from("budgets")
     .select("*")
+    .eq("user_id", userId)
     .order("month", { ascending: false });
 
   if (error) {

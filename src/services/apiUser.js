@@ -7,7 +7,7 @@ export async function fetchUser(id) {
     throw new Error("User could not be loaded");
   }
 
-  return data;
+  return data[0];
 }
 
 export async function editUser(editedUser) {

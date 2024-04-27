@@ -1,9 +1,10 @@
 import supabase from "./supabase";
 
-export async function fetchGoals() {
+export async function fetchGoals(userId) {
   let { data, error } = await supabase
     .from("goals")
     .select("*")
+    .eq("user_id", userId)
     .order("start_date", { ascending: true });
 
   if (error) {

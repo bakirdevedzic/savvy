@@ -11,8 +11,8 @@ import toast from "react-hot-toast";
 // Async Thunks for Goals
 export const fetchGoalsAsync = createAsyncThunk(
   "goals/fetchGoals",
-  async () => {
-    const response = await fetchGoals();
+  async (userId) => {
+    const response = await fetchGoals(userId);
     return response;
   }
 );

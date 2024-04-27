@@ -1,9 +1,10 @@
 import supabase from "./supabase";
 
-export async function fetchCategories() {
+export async function fetchCategories(userId) {
   let { data, error } = await supabase
     .from("categories")
     .select("*")
+    .eq("user_id", userId)
     .order("id", { ascending: false });
 
   if (error) {

@@ -15,12 +15,17 @@ export const editUserAsync = createAsyncThunk("user/editUser", async (id) => {
 const initialState = {
   user: null,
   status: "idle",
+  isLoggedIn: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserIsNotLogged: (state) => {
+      state.isLoggedIn = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserAsync.pending, (state) => {
@@ -28,7 +33,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
-        console.log("action", action.payload);
+        state.isLoggedIn = true;
+        console.log("user");
         state.status = "succeeded";
       })
       .addCase(fetchUserAsync.rejected, (state, action) => {
@@ -50,4 +56,5 @@ const userSlice = createSlice({
   },
 });
 
+export const { setUserIsNotLogged } = userSlice.actions;
 export default userSlice.reducer;
