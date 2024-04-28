@@ -7,6 +7,7 @@ export async function fetchUser(id) {
     throw new Error("User could not be loaded");
   }
 
+  if (data[0].balance === null) data[0].balance = 0;
   return data[0];
 }
 

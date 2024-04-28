@@ -22,6 +22,7 @@ function Budget() {
   const dispatch = useDispatch();
 
   const budgets = useSelector(getBudgets);
+  const user = useSelector((state) => state.user.user);
 
   const currentBudget2 = useSelector((state) => state.budgets.currentBudget);
   const transactions = useSelector(getTransactions);
@@ -84,7 +85,7 @@ function Budget() {
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
-        <InfoCard label="Balance" amount={45685} />
+        <InfoCard label="Balance" amount={user?.balance} />
         <InfoCard
           label="Budget for this month"
           amount={
