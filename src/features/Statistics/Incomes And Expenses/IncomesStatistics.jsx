@@ -24,12 +24,20 @@ function IncomeStatistics() {
         category to the total income. It offers a quick insight into the
         relative significance of different income sources.
       </div>
-      <div>
-        <PeriodPicker setPeriod={setPeriod} />
-      </div>
-      <div>
-        <IAEPieChart data={incomeData} />
-      </div>
+      {transactions.length !== 0 ? (
+        <>
+          <div>
+            <PeriodPicker setPeriod={setPeriod} />
+          </div>
+          <div>
+            <IAEPieChart data={incomeData} />
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+          Please add your first income!
+        </div>
+      )}
     </div>
   );
 }

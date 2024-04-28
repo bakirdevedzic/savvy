@@ -10,6 +10,7 @@ function ProfileCard() {
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
+    logout();
   };
   return (
     <div className="flex justify-center">

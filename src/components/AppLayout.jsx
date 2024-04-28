@@ -28,8 +28,7 @@ function AppLayout() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      console.log("podaci");
-      console.log("userid", user.id);
+
       await dispatch(fetchTransactionsAsync(user.id));
       await dispatch(fetchBudgetsAsync(user.id));
       await dispatch(fetchCategoriesAsync(user.id));

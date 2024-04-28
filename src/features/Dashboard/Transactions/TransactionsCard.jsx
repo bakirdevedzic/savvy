@@ -21,7 +21,7 @@ function TransactionsCard() {
         ))
       ) : (
         <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
-          Add your first transaction!
+          Plase add your first transaction!
         </div>
       )}
     </div>

@@ -18,6 +18,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
   });
   const { errors } = formState;
   const curMonth = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}`;
+  const user_id = useSelector((state) => state.user.user.id);
 
   const dispatch = useDispatch();
   const status = useSelector((state) => state.budgets.status);
@@ -28,6 +29,8 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
     : { month: "", planned_amount: 0 };
 
   const onSubmit = async (data) => {
+    data = { ...data, user_id };
+    console.log(data);
     if (!isEditSession) {
       await dispatch(
         addBudgetAsync({ ...data, month: transformMonth(data.month) })

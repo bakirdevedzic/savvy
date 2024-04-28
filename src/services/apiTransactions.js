@@ -21,6 +21,7 @@ export async function fetchTransactions(userId) {
 }
 
 export async function addTransaction(newTransaction) {
+  console.log("newTransaction", newTransaction);
   const { data, error } = await supabase
     .from("transactions")
     .insert([newTransaction])

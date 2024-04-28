@@ -6,10 +6,13 @@ import SpendingBar from "./SpendingBar";
 
 function SpendingStats({ text }) {
   const transactions = useSelector(getTransactions);
-  const firstMonth = new Date(transactions[transactions.length - 1].date);
-  const lastMonth = new Date(transactions[0].date);
+  let firstMonth, lastMonth, data;
+  if (transactions.length !== 0) {
+    firstMonth = new Date(transactions[transactions.length - 1].date);
+    lastMonth = new Date(transactions[0].date);
 
-  const data = generateChartData(transactions, firstMonth, lastMonth);
+    data = generateChartData(transactions, firstMonth, lastMonth);
+  }
 
   return (
     <div className="flex flex-col ">
@@ -20,7 +23,13 @@ function SpendingStats({ text }) {
       </div>
 
       <div>
-        <SpendingBar data={data} />
+        {transactions.length !== 0 ? (
+          <SpendingBar data={data} />
+        ) : (
+          <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+            Plase add your first transaction!
+          </div>
+        )}
       </div>
     </div>
   );

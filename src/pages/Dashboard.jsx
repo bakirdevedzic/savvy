@@ -7,8 +7,6 @@ import { generateChartData } from "../utils/statisticsHelpers";
 import Chart from "react-google-charts";
 import { calculateMonthSpendings } from "../utils/budgetHelpers";
 
-import supabase from "../services/supabase";
-
 function Dashboard() {
   const options = {
     pieHole: 0.4,
@@ -17,15 +15,18 @@ function Dashboard() {
 
     legend: { position: "top", alignment: "start" },
   };
-  const transactions = useSelector(getTransactions);
-  const firstMonth = new Date(transactions[transactions.length - 1].date);
-  const lastMonth = new Date(transactions[0].date);
-
   const currentMonth = new Date();
   const currentBudget2 = useSelector((state) => state.budgets.currentBudget);
+  const transactions = useSelector(getTransactions);
+  let firstMonth, lastMonth, data;
+  if (transactions.length !== 0) {
+    firstMonth = new Date(transactions[transactions.length - 1].date);
+    lastMonth = new Date(transactions[0].date);
+    data = generateChartData(transactions, firstMonth, lastMonth);
+  }
+
   const thisMonthSpending = calculateMonthSpendings(transactions, currentMonth);
 
-  const data = generateChartData(transactions, firstMonth, lastMonth);
   return (
     <div className="max-w-[1700px] w-[100%]">
       <div className="text-2xl mb-4 mt-2 font-bold text-slate-800">
@@ -75,13 +76,19 @@ function Dashboard() {
           <p className="text-lg font-bold">
             Spending and income/expense ratio over time
           </p>
-          <Chart
-            chartType="AreaChart"
-            width="100%"
-            height="400px"
-            data={data}
-            options={options}
-          />
+          {transactions.length !== 0 ? (
+            <Chart
+              chartType="AreaChart"
+              width="100%"
+              height="400px"
+              data={data}
+              options={options}
+            />
+          ) : (
+            <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+              Not enough data!
+            </div>
+          )}
         </div>
       </div>
     </div>

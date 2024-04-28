@@ -36,7 +36,13 @@ function BudgetsStats() {
         </p>
       </div>
       <div>
-        <BudgetsBar data={data} />
+        {budgets.length !== 0 ? (
+          <BudgetsBar data={data} />
+        ) : (
+          <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+            Please add your first budget!
+          </div>
+        )}
       </div>
     </div>
   );

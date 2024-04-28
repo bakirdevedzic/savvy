@@ -24,12 +24,20 @@ function ExpenseStatistics() {
         money is spent, helping track budget allocations and identify areas for
         potential savings or optimizations.
       </div>
-      <div>
-        <PeriodPicker setPeriod={setPeriod} />
-      </div>
-      <div>
-        <IAEPieChart data={expenseData} />
-      </div>
+      {transactions.length !== 0 ? (
+        <>
+          <div>
+            <PeriodPicker setPeriod={setPeriod} />
+          </div>
+          <div>
+            <IAEPieChart data={expenseData} />
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+          Please add your first expense!
+        </div>
+      )}
     </div>
   );
 }

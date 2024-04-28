@@ -27,8 +27,9 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
 
   const dispatch = useDispatch();
   const status = useSelector((state) => state.transactions.status);
-
+  const user_id = useSelector((state) => state.user.user.id);
   const onSubmit = async (data) => {
+    data = { ...data, user_id };
     if (isEditSession) {
       await dispatch(editTransactionAsync({ ...data, id: editId }));
     } else {

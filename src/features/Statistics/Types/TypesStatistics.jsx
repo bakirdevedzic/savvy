@@ -35,16 +35,24 @@ function TypesStatistics({ editing = true, text }) {
       <div className="font-almarai font-bold text-gray-800">
         {!editing
           ? text
-          : "Expense category statistics provide insights into where and how much money is spent, helping track budget allocations and identify areas for potential savings or optimizations."}
+          : "The type statistics, encompassing both expenses and incomes, provide valuable insights into financial flows. This data helps track the distribution of money between expenses and incomes, highlighting key trends and patterns over time."}
       </div>
-      {editing && (
-        <div>
-          <PeriodPicker setPeriod={setPeriod} />
+      {transactions.length !== 0 ? (
+        <>
+          {editing && (
+            <div>
+              <PeriodPicker setPeriod={setPeriod} />
+            </div>
+          )}
+          <div>
+            <TypePieChart data={data} />
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center items-center h-[350px] font-bold text-gray-500 text-xl">
+          Not enough data!
         </div>
       )}
-      <div>
-        <TypePieChart data={data} />
-      </div>
     </div>
   );
 }

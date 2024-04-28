@@ -14,8 +14,9 @@ function GoalForm({ onClose }) {
 
   const dispatch = useDispatch();
   const status = useSelector((state) => state.goals.status);
-
+  const user_id = useSelector((state) => state.user.user.id);
   const onSubmit = async (data) => {
+    data = { ...data, user_id };
     await dispatch(addGoalAsync(data));
 
     if (status === "succeeded") {
