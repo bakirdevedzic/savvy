@@ -15,6 +15,7 @@ export async function fetchCategories(userId) {
 }
 
 export async function addCategory(newCategory) {
+  console.log(newCategory);
   const { data, error } = await supabase
     .from("categories")
     .insert([newCategory])

@@ -7,10 +7,13 @@ export const fetchUserAsync = createAsyncThunk("user/fetchUser", async (id) => {
   return response;
 });
 
-export const editUserAsync = createAsyncThunk("user/editUser", async (id) => {
-  const response = await editUser(id);
-  return response;
-});
+export const editUserAsync = createAsyncThunk(
+  "user/editUser",
+  async (editedUser) => {
+    const response = await editUser(editedUser);
+    return response;
+  }
+);
 
 const initialState = {
   user: null,

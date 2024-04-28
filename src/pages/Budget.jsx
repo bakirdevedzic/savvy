@@ -87,7 +87,9 @@ function Budget() {
         <InfoCard label="Balance" amount={45685} />
         <InfoCard
           label="Budget for this month"
-          amount={currentBudget2?.planned_amount}
+          amount={
+            currentBudget2?.planned_amount ? currentBudget2?.planned_amount : 0
+          }
         />
         <InfoCard
           label="Spent this month"

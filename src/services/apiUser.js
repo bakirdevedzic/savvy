@@ -11,6 +11,7 @@ export async function fetchUser(id) {
 }
 
 export async function editUser(editedUser) {
+  console.log(editedUser);
   const { data, error } = await supabase
     .from("users")
     .update(editedUser)

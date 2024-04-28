@@ -40,7 +40,11 @@ function Dashboard() {
           <div className="grow">
             <InfoCard1
               label="Budget for this month"
-              amount={currentBudget2?.planned_amount}
+              amount={
+                currentBudget2?.planned_amount
+                  ? currentBudget2?.planned_amount
+                  : 0
+              }
             />
           </div>
           <div className="grow">

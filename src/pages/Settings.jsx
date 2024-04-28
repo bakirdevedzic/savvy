@@ -1,18 +1,26 @@
 import { useForm } from "react-hook-form";
 import FormRow from "../ui/FormRow";
+import { useDispatch, useSelector } from "react-redux";
+
+import ButtonConfirm from "../ui/ButtonConfirm";
+import { editUserAsync } from "../features/User/userSlice";
 
 function Settings() {
-  const { register, handleSubmit, formState } = useForm();
+  const user = useSelector((state) => state.user.user);
+
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: { ...user },
+  });
+  const status = useSelector((state) => state.user.status);
 
   const { errors } = formState;
-
-  function onSubmit(data) {
+  const dispatch = useDispatch();
+  const onSubmit = async (data) => {
     console.log(data);
-  }
+    await dispatch(editUserAsync(data));
+  };
 
-  function onError(errors) {
-    console.log(errors);
-  }
+  function onError(errors) {}
   return (
     <div className="max-w-[1700px] w-[100%]">
       <div className="bg-white max-w-max p-4 rounded-lg shadow-lg">
@@ -23,39 +31,24 @@ function Settings() {
         >
           <p className="text-2xl font-semibold font-almarai">Settings</p>
 
-          <FormRow label="Name" error={errors?.name?.message}>
+          <FormRow label="Username" error={errors?.username?.message}>
             <input
               type="text"
+              disabled={status === "loading"}
               className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-              {...register("name")}
-            />
-          </FormRow>
-
-          <FormRow label="Surname" error={errors?.surname?.message}>
-            <input
-              type="text"
-              className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-              {...register("surname")}
+              {...register("username")}
             />
           </FormRow>
 
           <FormRow label="Email" error={errors?.email?.message}>
             <input
               type="email"
-              className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
+              disabled={true}
+              className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2 text-gray-500 cursor-not-allowed"
               {...register("email")}
             />
           </FormRow>
-
-          <FormRow label="Country">
-            <select
-              id="Country"
-              className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
-            >
-              <option value="Bosnia">Bosnia</option>
-              <option value="Serbia">Serbia</option>
-            </select>
-          </FormRow>
+          <ButtonConfirm status={status} />
         </form>
       </div>
     </div>

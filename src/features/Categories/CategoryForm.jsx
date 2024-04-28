@@ -19,7 +19,6 @@ function CategoryForm({ onClose, categoryToEdit = {} }) {
   const user_id = useSelector((state) => state.user.user.id);
   const dispatch = useDispatch();
   const status = useSelector((state) => state.categories.status);
-
   const onSubmit = async (data) => {
     data = { ...data, user_id: user_id };
 
