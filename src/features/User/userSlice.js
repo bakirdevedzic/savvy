@@ -37,7 +37,7 @@ const userSlice = createSlice({
       .addCase(fetchUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
-        console.log("user");
+
         state.status = "succeeded";
       })
       .addCase(fetchUserAsync.rejected, (state, action) => {

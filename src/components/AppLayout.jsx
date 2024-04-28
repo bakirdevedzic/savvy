@@ -12,6 +12,8 @@ import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
 import { fetchGoalsAsync } from "../features/Goals/goalsSlice";
 import Spinner from "../ui/Spinner";
+import { editUserAsync } from "../features/User/userSlice";
+import { getUsernameFromEmail } from "../utils/helpers";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -20,7 +22,6 @@ function AppLayout() {
 
   const dispatch = useDispatch();
 
-  const transactions = useSelector(getTransactions);
   const user = useSelector((state) => state.user.user);
   const status = useSelector((state) => state.user.status);
   const [loading, setLoading] = useState(true);
@@ -45,6 +46,7 @@ function AppLayout() {
       </div>
     );
   }
+
   return (
     <div className="grid grid-cols-[18rem,1fr] h-[calc(100dvh)] md:flex sm:flex md:flex-col sm:flex-col">
       <Header setShowSidebar={setShowSidebar} />

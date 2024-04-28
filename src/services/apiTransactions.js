@@ -1,7 +1,6 @@
 import supabase from "./supabase";
 
 export async function fetchTransactions(userId) {
-  console.log("userid-api", userId);
   let { data, error } = await supabase
     .from("transactions")
     .select(

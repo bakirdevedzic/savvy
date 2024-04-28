@@ -42,3 +42,14 @@ export function transformMonth(inputDate) {
 
   return formattedDate;
 }
+
+export function getUsernameFromEmail(email) {
+  const atIndex = email.indexOf("@");
+  if (atIndex !== -1) {
+    return email.substring(0, atIndex);
+  } else {
+    // Handle invalid email format
+    console.error("Invalid email format:", email);
+    return null;
+  }
+}

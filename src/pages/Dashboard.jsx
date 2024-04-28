@@ -26,11 +26,11 @@ function Dashboard() {
   }
 
   const thisMonthSpending = calculateMonthSpendings(transactions, currentMonth);
-
+  const user = useSelector((state) => state.user?.user);
   return (
     <div className="max-w-[1700px] w-[100%]">
       <div className="text-2xl mb-4 mt-2 font-bold text-slate-800">
-        Welcome back, Alexandar!
+        {user?.username ? `Welcome back, ${user?.username}!` : "Welcome back!"}
       </div>
       <div className="flex flex-col gap-5">
         <div className="flex flex-row justify-between gap-3 flex-wrap">

@@ -1,28 +1,28 @@
 import { NavLink } from "react-router-dom";
 import { IoLogOut } from "react-icons/io5";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../services/apiUser";
 
 function ProfileCard() {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user.user);
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
     logout();
   };
+  console.log(user);
   return (
     <div className="flex justify-center">
       <div className="w-[90%] bg-primary-black text-primary-white-2 grid grid-cols-3 grid-rows-2 h-32 rounded-xl p-2 shadow-md shadow-black">
-        <img
-          src="https://images.generated.photos/9SZtEZxEsBJQH5-PZzAobHBMpMmuD5SYcByUjjuICf0/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTA4MTkwLmpwZw.jpg"
-          className="rounded-full object-cover row-[1/2] w-[80%] ml-4"
-          alt="photo of a person"
-        />
-        <div className="col-span-2 col-start-2 flex flex-col justify-center ml-4">
-          <span className="font-poppins font-bold text-[16px]">Alexandar</span>
-          <span className="font-poppins font-bold text-[16px]">Smith</span>
+        <div className="col-span-3 flex  justify-center font-bold pt-3">
+          {user?.username.length <= 20 &&
+            user?.username !== "" &&
+            user.username !== null &&
+            user?.username}
+          {user?.username.length > 20 && user?.username.slice(0, 20) + "..."}
+          {user?.username === null || (user?.username === "" && "Savvy user")}
         </div>
         <div className="flex justify-center col-span-full ">
           <NavLink
