@@ -53,3 +53,20 @@ export function getUsernameFromEmail(email) {
     return null;
   }
 }
+
+export function calculateBalanceBasedOnSpendingData(data) {
+  const transactions = data.slice(1);
+
+  const totals = transactions.reduce(
+    (acc, current) => {
+      acc.income += current[1];
+      acc.expense += current[2];
+      return acc;
+    },
+    { income: 0, expense: 0 }
+  );
+
+  const overallBalance = totals.income - totals.expense;
+
+  return overallBalance;
+}

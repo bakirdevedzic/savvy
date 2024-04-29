@@ -3,16 +3,19 @@ import { IoLogOut } from "react-icons/io5";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../services/apiUser";
+import { useMemo } from "react";
 
 function ProfileCard() {
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user.user);
+
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
     logout();
   };
-  console.log(user);
+
   return (
     <div className="flex justify-center">
       <div className="w-[90%] bg-primary-black text-primary-white-2 grid grid-cols-3 grid-rows-2 h-32 rounded-xl p-2 shadow-md shadow-black">

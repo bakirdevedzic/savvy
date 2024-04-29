@@ -26,6 +26,19 @@ export async function editUser(editedUser) {
   return data[0];
 }
 
+export async function changeBalance({ userId, amount }) {
+  const { data, error } = await supabase
+    .from("users")
+    .update({ balance: amount })
+    .eq("id", userId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log("data");
+  return data;
+}
+
 export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
   if (!session.session) return null;

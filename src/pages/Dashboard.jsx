@@ -6,6 +6,7 @@ import TransactionsCard from "../features/Dashboard/Transactions/TransactionsCar
 import { generateChartData } from "../utils/statisticsHelpers";
 import Chart from "react-google-charts";
 import { calculateMonthSpendings } from "../utils/budgetHelpers";
+import { calculateBalanceBasedOnSpendingData } from "../utils/helpers";
 
 function Dashboard() {
   const options = {
@@ -18,11 +19,12 @@ function Dashboard() {
   const currentMonth = new Date();
   const currentBudget2 = useSelector((state) => state.budgets.currentBudget);
   const transactions = useSelector(getTransactions);
-  let firstMonth, lastMonth, data;
+  let firstMonth, lastMonth, data, balance;
   if (transactions.length !== 0) {
     firstMonth = new Date(transactions[transactions.length - 1].date);
     lastMonth = new Date(transactions[0].date);
     data = generateChartData(transactions, firstMonth, lastMonth);
+    balance = calculateBalanceBasedOnSpendingData(data);
   }
 
   const thisMonthSpending = calculateMonthSpendings(transactions, currentMonth);
@@ -35,7 +37,7 @@ function Dashboard() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-row justify-between gap-3 flex-wrap">
           <div className="grow">
-            <InfoCard1 label="Balance" amount={user?.balance} />
+            <InfoCard1 label="Balance" amount={balance} />
           </div>
           <div className="grow">
             <InfoCard1
