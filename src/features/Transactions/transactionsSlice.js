@@ -68,7 +68,7 @@ const transactionsSlice = createSlice({
           return {
             ...transaction,
             category_id: null,
-            categories: undefined, // Delete the entire categories object
+            categories: undefined,
           };
         }
         return transaction;

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { changeBalance, editUser, fetchUser } from "../../services/apiUser";
+import { editUser, fetchUser } from "../../services/apiUser";
 import toast from "react-hot-toast";
 
 export const fetchUserAsync = createAsyncThunk("user/fetchUser", async (id) => {
@@ -11,14 +11,6 @@ export const editUserAsync = createAsyncThunk(
   "user/editUser",
   async (editedUser) => {
     const response = await editUser(editedUser);
-    return response;
-  }
-);
-
-export const changeBalanceAsync = createAsyncThunk(
-  "user/changeBalance",
-  async ({ amount, userId }) => {
-    const response = await changeBalance({ amount, userId });
     return response;
   }
 );
@@ -61,17 +53,6 @@ const userSlice = createSlice({
         toast.success("User edited successfully");
       })
       .addCase(editUserAsync.rejected, (state, action) => {
-        state.status = "failed";
-        toast.error(action.error.message);
-      })
-      .addCase(changeBalanceAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(changeBalanceAsync.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        toast.success("Balance changed successfully");
-      })
-      .addCase(changeBalanceAsync.rejected, (state, action) => {
         state.status = "failed";
         toast.error(action.error.message);
       });

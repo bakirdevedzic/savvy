@@ -14,6 +14,8 @@ import {
   isFromLastMonth,
 } from "../utils/budgetHelpers.js";
 import { getTransactions } from "../features/Transactions/transactionsSlice.js";
+import { generateChartData } from "../utils/statisticsHelpers.js";
+import { calculateBalanceBasedOnSpendingData } from "../utils/helpers.js";
 
 function Budget() {
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +29,13 @@ function Budget() {
   const currentBudget2 = useSelector((state) => state.budgets.currentBudget);
   const transactions = useSelector(getTransactions);
   const currentMonth = new Date();
+  let firstMonth, lastMonth, data, balance;
+  if (transactions.length !== 0) {
+    firstMonth = new Date(transactions[transactions.length - 1].date);
+    lastMonth = new Date(transactions[0].date);
+    data = generateChartData(transactions, firstMonth, lastMonth);
+    balance = calculateBalanceBasedOnSpendingData(data);
+  }
 
   useEffect(() => {
     const isThereFromLastMonth = budgets.findIndex((budget) =>
@@ -85,7 +94,11 @@ function Budget() {
   return (
     <div className="max-w-[1700px] w-[100%] grid-rows grid gap-3 auto-rows-max	">
       <div className="grid grid-cols-2 grid-rows-2 gap-4 us:flex us:flex-col max-w-max">
-        <InfoCard label="Balance" amount={user?.balance} />
+        <InfoCard
+          label="Balance"
+          amount={balance ? balance : 0}
+          color={balance < 0 ? "red" : "green"}
+        />
         <InfoCard
           label="Budget for this month"
           amount={

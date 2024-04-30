@@ -34,6 +34,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
       await dispatch(editTransactionAsync({ ...data, id: editId }));
     } else {
       data = { ...data, date: new Date().toISOString() };
+      if (data.category_id === "-1") data.category_id = null;
       await dispatch(addTransactionAsync(data));
     }
 
@@ -114,7 +115,7 @@ function TransactionsForm({ transactionToEdit = {}, onClose }) {
           className="bg-slate-100 outline outline-1 outline-gray-400 focus:outline-blue-500 rounded-lg h-10 w-72 p-2"
           {...register("category_id")}
         >
-          <option value="">Select category</option>
+          <option value={-1}>Select category</option>
 
           {typeClicked === "INCOME" &&
             incomeCategories.map((category) => (

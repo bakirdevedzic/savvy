@@ -30,10 +30,8 @@ export async function addTransaction(newTransaction) {
     throw new Error("Error uploading transaction");
   }
 
-  // Get the inserted transaction ID (assuming there's an ID column)
   const insertedTransactionId = data[0].id;
 
-  // Perform a separate query to fetch the inserted transaction with category name
   const { data: transactionWithCategory, error: fetchError } = await supabase
     .from("transactions")
     .select(`*, categories (id, name)`)
@@ -44,7 +42,7 @@ export async function addTransaction(newTransaction) {
     throw new Error("Error fetching inserted transaction");
   }
 
-  return [transactionWithCategory]; // This includes the category name
+  return [transactionWithCategory];
 }
 
 export async function deleteTransaction(id) {

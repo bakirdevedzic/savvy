@@ -7,7 +7,6 @@ export async function fetchUser(id) {
     throw new Error("User could not be loaded");
   }
 
-  if (data[0].balance === null) data[0].balance = 0;
   return data[0];
 }
 
@@ -24,19 +23,6 @@ export async function editUser(editedUser) {
   }
 
   return data[0];
-}
-
-export async function changeBalance({ userId, amount }) {
-  const { data, error } = await supabase
-    .from("users")
-    .update({ balance: amount })
-    .eq("id", userId);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-  console.log("data");
-  return data;
 }
 
 export async function getCurrentUser() {

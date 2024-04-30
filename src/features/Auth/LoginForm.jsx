@@ -46,6 +46,9 @@ function LoginForm() {
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>
+        <p className="text-gray-500">
+          Enter your email, and we&apos;ll send a link to your inbox.
+        </p>
       </div>
       <form method="post" onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="mt-10">

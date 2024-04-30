@@ -12,8 +12,6 @@ import { fetchBudgetsAsync } from "../features/Budget/budgetSlice";
 import { fetchCategoriesAsync } from "../features/Categories/categoriesSlice";
 import { fetchGoalsAsync } from "../features/Goals/goalsSlice";
 import Spinner from "../ui/Spinner";
-import { editUserAsync } from "../features/User/userSlice";
-import { getUsernameFromEmail } from "../utils/helpers";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(false);

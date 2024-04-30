@@ -37,7 +37,7 @@ function Dashboard() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-row justify-between gap-3 flex-wrap">
           <div className="grow">
-            <InfoCard1 label="Balance" amount={balance} />
+            <InfoCard1 label="Balance" amount={balance ? balance : 0} />
           </div>
           <div className="grow">
             <InfoCard1

@@ -31,6 +31,16 @@ const calculateIncomeStats = (transactions, incomeCategories, days) => {
     };
   });
 
+  const noCategoryTransactions = filteredTransactions.filter(
+    (transaction) => !transaction.category_id
+  );
+  const noCategoryAmount = noCategoryTransactions.reduce(
+    (acc, transaction) => acc + transaction.amount,
+    0
+  );
+  const noCategory = { amount: noCategoryAmount, name: "Uncategorized" };
+  transformedIncomeCategories.push(noCategory);
+
   return transformedIncomeCategories;
 };
 
@@ -63,6 +73,16 @@ const calculateExpenseStats = (transactions, expenseCategories, days) => {
       amount: totalAmount,
     };
   });
+
+  const noCategoryTransactions = filteredTransactions.filter(
+    (transaction) => !transaction.category_id
+  );
+  const noCategoryAmount = noCategoryTransactions.reduce(
+    (acc, transaction) => acc + transaction.amount,
+    0
+  );
+  const noCategory = { amount: noCategoryAmount, name: "Uncategorized" };
+  transformedExpenseCategories.push(noCategory);
 
   return transformedExpenseCategories;
 };

@@ -20,12 +20,12 @@ function ProfileCard() {
     <div className="flex justify-center">
       <div className="w-[90%] bg-primary-black text-primary-white-2 grid grid-cols-3 grid-rows-2 h-32 rounded-xl p-2 shadow-md shadow-black">
         <div className="col-span-3 flex  justify-center font-bold pt-3">
-          {user?.username.length <= 20 &&
+          {user?.username?.length <= 20 &&
             user?.username !== "" &&
-            user.username !== null &&
+            user?.username !== null &&
             user?.username}
-          {user?.username.length > 20 && user?.username.slice(0, 20) + "..."}
-          {user?.username === null || (user?.username === "" && "Savvy user")}
+          {user?.username?.length > 20 && user?.username.slice(0, 20) + "..."}
+          {(user?.username === null || user?.username === "") && "Savvy user"}
         </div>
         <div className="flex justify-center col-span-full ">
           <NavLink
