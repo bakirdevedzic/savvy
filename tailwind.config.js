@@ -22,13 +22,10 @@ export default {
         xl: { max: "1380px" },
 
         md: { max: "1025px" },
-        // => @media (max-width: 1025px) { ... }
 
         sm: { max: "800px" },
-        // => @media (max-width: 639px) { ... }
 
         us: { max: "600px" },
-        // => @media (max-width: 639px) { ... }
       },
     },
   },

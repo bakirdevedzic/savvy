@@ -27,7 +27,7 @@ function LoginForm() {
         },
       });
       setLoading(false);
-      if (loginData) {
+      if (loginData && loginData.user) {
         toast.success("Email sent!");
       } else if (error) {
         throw new Error(error.message);

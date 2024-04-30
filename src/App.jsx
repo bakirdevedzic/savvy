@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
-import PageNotFound from "./pages/PageNotFound";
+
 import Categories from "./pages/Categories";
 import Budget from "./pages/Budget";
 import Goals from "./pages/Goals";
@@ -17,6 +17,8 @@ import supabase from "./services/supabase";
 
 import { useDispatch } from "react-redux";
 import { fetchUserAsync, setUserIsNotLogged } from "./features/User/userSlice";
+import Home from "./pages/Home/Home";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
