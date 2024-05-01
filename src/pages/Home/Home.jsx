@@ -28,9 +28,9 @@ function Home() {
           </div>
         </div>
         <div className="flex justify-center mt-3 mb-3">
-          <Button type="base">
-            <Link to="/login">Get Started</Link>
-          </Button>
+          <Link to="/login">
+            <Button type="base">Get Started</Button>
+          </Link>
         </div>
         <div>
           <img

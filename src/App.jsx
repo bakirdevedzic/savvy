@@ -1,4 +1,12 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -15,10 +23,11 @@ import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import supabase from "./services/supabase";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, setUserIsNotLogged } from "./features/User/userSlice";
 import Home from "./pages/Home/Home";
 import PageNotFound from "./pages/PageNotFound";
+import ExpiredLink from "./pages/ExpiredLink";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +45,19 @@ function App() {
     }
     chekcIfThereIsUSer();
   }, []);
+  const isDemoAccount = useSelector((state) => state.user.isDemoAccount);
+
+  const currentUrl = window?.location.hash;
+
+  let extractedData = { error_code: null, error_description: null };
+  if (currentUrl) {
+    const errorData = currentUrl.slice(1).split("&");
+
+    errorData.forEach((data) => {
+      const [key, value] = data.split("=");
+      extractedData[decodeURIComponent(key)] = decodeURIComponent(value);
+    });
+  }
 
   return (
     <BrowserRouter>
@@ -46,7 +68,10 @@ function App() {
         <Route
           path="/app"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute
+              isDemoAccount={isDemoAccount}
+              extractedData={extractedData}
+            >
               <AppLayout />
             </ProtectedRoute>
           }
@@ -62,6 +87,15 @@ function App() {
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
+        <Route
+          path="/expired"
+          element={
+            <ExpiredLink
+              code={extractedData?.error_code}
+              desc={extractedData?.error_description?.replaceAll("+", " ")}
+            />
+          }
+        />
       </Routes>
       <Toaster
         position="top-center"

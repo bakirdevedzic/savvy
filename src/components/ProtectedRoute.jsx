@@ -3,7 +3,7 @@ import Spinner from "../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../services/apiUser";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, isDemoAccount, extractedData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -11,7 +11,7 @@ function ProtectedRoute({ children }) {
 
   useEffect(() => {
     async function checkAuth() {
-      setIsLoading(true); //
+      setIsLoading(true);
       const userData = await getCurrentUser();
       setIsAuthenticated(userData?.role === "authenticated");
       setIsLoading(false);
@@ -27,9 +27,17 @@ function ProtectedRoute({ children }) {
       </div>
     );
   }
+  if (isDemoAccount) {
+    return children;
+  }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !isDemoAccount && !extractedData.error_code) {
     navigate("/login");
+    return null;
+  }
+  if (extractedData?.error_code) {
+    console.log("usao ovdje");
+    navigate("/expired");
     return null;
   }
 

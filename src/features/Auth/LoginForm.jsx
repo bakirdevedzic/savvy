@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 import supabase from "../../services/supabase";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Button from "../../ui/Button";
+import { useDispatch } from "react-redux";
+import { fetchUserAsync, setDemoAccount } from "../User/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const {
@@ -14,6 +18,8 @@ function LoginForm() {
   } = useForm();
 
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -39,6 +45,16 @@ function LoginForm() {
   };
   const onError = (errors) => {};
 
+  function manuallySetSession() {
+    try {
+      dispatch(fetchUserAsync("0b5b6976-3fcd-4e54-ac94-001a6682168b"));
+      dispatch(setDemoAccount());
+      navigate("/app");
+    } catch (error) {
+      console.error("Manual session set error:", error.message);
+    }
+  }
+
   return (
     <div className="flex flex-col justify-center px-6 py-12 max-w-[350px] us:overflow-auto bg-white rounded-lg shadow-lg">
       <div>
@@ -46,7 +62,7 @@ function LoginForm() {
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-center">
           Enter your email, and we&apos;ll send a link to your inbox.
         </p>
       </div>
@@ -94,6 +110,14 @@ function LoginForm() {
           </button>
         </div>
       </form>
+      <div className="flex flex-col justify-center items-center mt-3 w-[100%]">
+        <p className="text-gray-500 mb-2">
+          or give it a try without logging in
+        </p>
+        <Button type="small" onClick={() => manuallySetSession()}>
+          Demo account
+        </Button>
+      </div>
     </div>
   );
 }

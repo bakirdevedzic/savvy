@@ -19,6 +19,7 @@ const initialState = {
   user: null,
   status: "idle",
   isLoggedIn: false,
+  isDemoAccount: false,
 };
 
 const userSlice = createSlice({
@@ -27,6 +28,9 @@ const userSlice = createSlice({
   reducers: {
     setUserIsNotLogged: (state) => {
       state.isLoggedIn = false;
+    },
+    setDemoAccount: (state) => {
+      state.isDemoAccount = true;
     },
   },
   extraReducers: (builder) => {
@@ -59,5 +63,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserIsNotLogged } = userSlice.actions;
+export const { setUserIsNotLogged, setDemoAccount } = userSlice.actions;
 export default userSlice.reducer;
