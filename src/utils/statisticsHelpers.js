@@ -112,7 +112,7 @@ export const generateChartData = (transactions, firstMonth, lastMonth) => {
   const data = [["Month and year", "Incomes", "Expenses"]];
 
   let currentDate = new Date(firstMonth);
-  while (currentDate <= lastMonth) {
+  while (currentDate.getMonth() <= lastMonth.getMonth()) {
     const formattedDate = formatMonth(currentDate);
 
     const income = calculateMonthEarning(transactions, currentDate);
@@ -132,8 +132,8 @@ export const calculateTotalAmount = (arrayOfObjects) => {
 
 export function daysSinceMonthStart() {
   const today = new Date();
-  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1); // Set date to first day of current month
-  const daysElapsed = (today - firstDay) / (1000 * 60 * 60 * 24); // Milliseconds to days conversion
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+  const daysElapsed = (today - firstDay) / (1000 * 60 * 60 * 24);
 
-  return Math.floor(daysElapsed) + 1; // Round down and add 1 for first day
+  return Math.floor(daysElapsed) + 1;
 }

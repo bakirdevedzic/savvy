@@ -12,6 +12,7 @@ function SpendingStats({ text }) {
     lastMonth = new Date(transactions[0].date);
 
     data = generateChartData(transactions, firstMonth, lastMonth);
+    console.log("data", data);
   }
 
   return (

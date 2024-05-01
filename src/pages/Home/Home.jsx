@@ -95,5 +95,3 @@ function Home() {
 }
 
 export default Home;
-
-//max-w-[1700px]

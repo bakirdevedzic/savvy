@@ -122,7 +122,19 @@ const budgetsSlice = createSlice({
       .addCase(editBudgetAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Budget edited successfully");
-        state.currentBudget = action.payload;
+        if (
+          state.currentBudget &&
+          state.currentBudget.id === action.payload.id
+        ) {
+          state.currentBudget = action.payload;
+        } else {
+          state.budgets = state.budgets.map((budget) => {
+            if (budget.id === action.payload.id) {
+              return action.payload;
+            }
+            return budget;
+          });
+        }
       })
       .addCase(editBudgetAsync.rejected, (state, action) => {
         state.status = "failed";
