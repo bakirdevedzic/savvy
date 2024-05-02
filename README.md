@@ -12,11 +12,11 @@ Savvy is a modern financial planning tracking service designed to help users man
 
 - **Statistics**: Visualize spending habits with a variety of charts (pie charts, bar charts, donut charts) for different timeframes. Users can choose to see statistics for the last 7 days, 30 days, or even a full year. This flexibility allows for in-depth analysis at various time scales.
 
-  - ** Income**: A pie chart displays the user's income breakdown by category, highlighting the sources of their financial inflows.
+  - **Income** : A pie chart displays the user's income breakdown by category, highlighting the sources of their financial inflows.
 
-  - ** Expense**: Similar to income, a pie chart reveals which categories account for the most spending, allowing users to identify areas for potential cost reduction.
+  - **Expense**: Similar to income, a pie chart reveals which categories account for the most spending, allowing users to identify areas for potential cost reduction.
 
-  - ** Spending**: A bar chart provides a visual representation of the user's lifetime spending. This chart includes monthly income and expenses, showcasing how spending and income have fluctuated over time since opening the account.
+  - **Spending** : A bar chart provides a visual representation of the user's lifetime spending. This chart includes monthly income and expenses, showcasing how spending and income have fluctuated over time since opening the account.
 
   - **Type**: This chart displays the ratio between income and expense, providing a quick snapshot of the user's financial standing.
 
