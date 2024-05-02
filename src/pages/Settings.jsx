@@ -16,7 +16,6 @@ function Settings() {
   const { errors } = formState;
   const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    console.log(data);
     await dispatch(editUserAsync(data));
   };
 

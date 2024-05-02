@@ -8,7 +8,6 @@ import {
 } from "../../services/apiGoals";
 import toast from "react-hot-toast";
 
-// Async Thunks for Goals
 export const fetchGoalsAsync = createAsyncThunk(
   "goals/fetchGoals",
   async (userId) => {
@@ -56,7 +55,6 @@ const initialState = {
   error: null,
 };
 
-// Goals Slice
 const goalsSlice = createSlice({
   name: "goals",
   initialState,

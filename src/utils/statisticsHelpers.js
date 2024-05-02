@@ -112,7 +112,9 @@ export const generateChartData = (transactions, firstMonth, lastMonth) => {
   const data = [["Month and year", "Incomes", "Expenses"]];
 
   let currentDate = new Date(firstMonth);
-  while (currentDate.getMonth() <= lastMonth.getMonth()) {
+  const lastMonthPlusOne = new Date(lastMonth.getTime());
+
+  while (currentDate.getTime() < lastMonthPlusOne.getTime()) {
     const formattedDate = formatMonth(currentDate);
 
     const income = calculateMonthEarning(transactions, currentDate);

@@ -30,7 +30,7 @@ function BudgetForm({ budgetToEdit = {}, onClose }) {
 
   const onSubmit = async (data) => {
     data = { ...data, user_id };
-    console.log(data);
+
     if (!isEditSession) {
       await dispatch(
         addBudgetAsync({ ...data, month: transformMonth(data.month) })

@@ -36,7 +36,6 @@ function ProtectedRoute({ children, isDemoAccount, extractedData }) {
     return null;
   }
   if (extractedData?.error_code) {
-    console.log("usao ovdje");
     navigate("/expired");
     return null;
   }

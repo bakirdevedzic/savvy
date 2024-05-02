@@ -48,8 +48,6 @@ export function getUsernameFromEmail(email) {
   if (atIndex !== -1) {
     return email.substring(0, atIndex);
   } else {
-    // Handle invalid email format
-    console.error("Invalid email format:", email);
     return null;
   }
 }

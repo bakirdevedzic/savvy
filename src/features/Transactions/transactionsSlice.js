@@ -122,7 +122,7 @@ const transactionsSlice = createSlice({
       .addCase(editTransactionAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         toast.success("Transaction edited successfully");
-        console.log("action.payload", action.payload);
+
         const editedIndex = state.transactions.findIndex(
           (t) => t.id === action.payload.id
         );

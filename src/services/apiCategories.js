@@ -15,7 +15,6 @@ export async function fetchCategories(userId) {
 }
 
 export async function addCategory(newCategory) {
-  console.log(newCategory);
   const { data, error } = await supabase
     .from("categories")
     .insert([newCategory])
@@ -29,7 +28,6 @@ export async function addCategory(newCategory) {
 }
 
 export async function editCategory(editedCategory) {
-  console.log(editedCategory);
   let editedCategoryCopy = { ...editedCategory };
   delete editedCategoryCopy.amount;
   delete editedCategoryCopy.transactions;

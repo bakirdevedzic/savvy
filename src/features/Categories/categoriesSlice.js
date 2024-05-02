@@ -7,11 +7,10 @@ import {
 } from "../../services/apiCategories";
 import toast from "react-hot-toast";
 
-// Async Thunks for Categories
 export const fetchCategoriesAsync = createAsyncThunk(
   "categories/fetchCategories",
   async (userId) => {
-    const response = await fetchCategories(userId); // API call to fetch categories
+    const response = await fetchCategories(userId);
     return response;
   }
 );
@@ -19,7 +18,7 @@ export const fetchCategoriesAsync = createAsyncThunk(
 export const addCategoryAsync = createAsyncThunk(
   "categories/addCategory",
   async (newCategory) => {
-    const response = await addCategory(newCategory); // API call to add a new category
+    const response = await addCategory(newCategory);
     return response;
   }
 );
@@ -27,7 +26,7 @@ export const addCategoryAsync = createAsyncThunk(
 export const editCategoryAsync = createAsyncThunk(
   "categories/editCategory",
   async (editedCategory) => {
-    const response = await editCategory(editedCategory); // API call to edit a category
+    const response = await editCategory(editedCategory);
     return response;
   }
 );
@@ -47,7 +46,6 @@ const initialState = {
   error: null,
 };
 
-// Categories Slice
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
