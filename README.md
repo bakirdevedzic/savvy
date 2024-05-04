@@ -33,6 +33,7 @@ Savvy is a modern financial planning tracking service designed to help users man
 - **Authentication**: Magic Link Authentication with Supabase
 - **State Management**: Redux Toolkit
 - **Styling**: Responsive design with Tailwind CSS
+- **Form**: React Hook Form
 
 ## Getting Started
 
