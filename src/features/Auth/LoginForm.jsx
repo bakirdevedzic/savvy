@@ -29,7 +29,7 @@ function LoginForm() {
         email,
         options: {
           shouldCreateUser: true,
-          emailRedirectTo: "http://localhost:5173/app",
+          emailRedirectTo: "https://savvy-budget-tracking.netlify.app/app",
         },
       });
       setLoading(false);
