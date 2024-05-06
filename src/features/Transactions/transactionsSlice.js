@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 export const fetchTransactionsAsync = createAsyncThunk(
   "transaction/fetchTransactions",
   async function (userId) {
-    const response = await fetchTransactions(userId); // API call to fetch transactions
+    const response = await fetchTransactions(userId);
     return response;
   }
 );
@@ -18,7 +18,7 @@ export const fetchTransactionsAsync = createAsyncThunk(
 export const addTransactionAsync = createAsyncThunk(
   "transactions/addTransaction",
   async (newTransaction) => {
-    const response = await addTransaction(newTransaction); // API call to add a new transaction
+    const response = await addTransaction(newTransaction);
     return response;
   }
 );
@@ -34,7 +34,7 @@ export const deleteTransactionAsync = createAsyncThunk(
 export const editTransactionAsync = createAsyncThunk(
   "transactions/editTransaction",
   async (editedTransaction) => {
-    const response = await editTransaction(editedTransaction); // API call to edit a transaction
+    const response = await editTransaction(editedTransaction);
     return response;
   }
 );

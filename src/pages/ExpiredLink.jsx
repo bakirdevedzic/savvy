@@ -34,7 +34,9 @@ function ExpiredLink({ code, desc }) {
       <div className="w-[100%] flex flex-col justify-center items-center min-h-[200px] justify-items-center bg-primary-black mt-24">
         <div className="text-5xl font-bold text-white">Savvy</div>
         <div className="text-xl font-bold text-white mt-3">
-          Check out code on GitHub!
+          <a href="https://github.com/bakirdevedzic/savvy/" target="_blank">
+            Check out code on GitHub!
+          </a>
         </div>
       </div>
     </div>

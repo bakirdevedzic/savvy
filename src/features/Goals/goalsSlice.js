@@ -90,6 +90,7 @@ const goalsSlice = createSlice({
       .addCase(addGoalAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error(action.error.message);
       })
       .addCase(editGoalAsync.pending, (state) => {
         state.status = "loading";

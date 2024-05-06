@@ -12,7 +12,6 @@ const store = configureStore({
     budgets: budgetSlice,
     categories: categoriesSlice,
     goals: goalsSlice,
-
     user: userSlice,
   },
 });

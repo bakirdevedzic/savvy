@@ -9,14 +9,7 @@ function TableHead({ title, width }) {
     color: "#EBF4F0",
     width: `${width}rem`,
   };
-  return (
-    <th
-      // className={`p-3 text-poppins text-sm font-bold text-primary-white-2 tracking-wide border-r`}
-      style={styles}
-    >
-      {title}
-    </th>
-  );
+  return <th style={styles}>{title}</th>;
 }
 
 export default TableHead;
