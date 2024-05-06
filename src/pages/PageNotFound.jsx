@@ -11,9 +11,7 @@ function PageNotFound() {
           className="w-[130px] h-[64px] self-start object-cover"
         />
       </div>
-      {/* <div className="flex flex-col h-[100%] bg-red-400 ">
-        <p className="text-5xl font-bold whitespace-normal">Page Not Found</p>
-      </div> */}
+
       <section className="flex items-center h-screen p-16">
         <div className="container flex flex-col items-center ">
           <div className="flex flex-col gap-6 max-w-md text-center">
