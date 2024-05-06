@@ -123,12 +123,10 @@ const categoriesSlice = createSlice({
         const deletedCategoryId = action.payload;
         toast.success("Category deleted successfully");
 
-        // Remove the deleted category from the income categories array
         state.incomeCategories = state.incomeCategories.filter(
           (category) => category.id !== deletedCategoryId
         );
 
-        // Remove the deleted category from the expense categories array
         state.expenseCategories = state.expenseCategories.filter(
           (category) => category.id !== deletedCategoryId
         );
