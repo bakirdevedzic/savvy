@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 export const fetchBudgetsAsync = createAsyncThunk(
   "transaction/fetchBudgets",
   async function (userId) {
-    const response = await fetchBudgets(userId); // API call to fetch budgets
+    const response = await fetchBudgets(userId);
     return response;
   }
 );
@@ -18,7 +18,7 @@ export const fetchBudgetsAsync = createAsyncThunk(
 export const addBudgetAsync = createAsyncThunk(
   "budgets/addBudget",
   async (newBudget) => {
-    const response = await addBudget(newBudget); // API call to add a new budget
+    const response = await addBudget(newBudget);
     return response;
   }
 );
@@ -26,7 +26,7 @@ export const addBudgetAsync = createAsyncThunk(
 export const editBudgetAsync = createAsyncThunk(
   "budgets/editBudget",
   async (editedBudget) => {
-    const response = await editBudget(editedBudget); // API call to edit a budget
+    const response = await editBudget(editedBudget);
     return response;
   }
 );

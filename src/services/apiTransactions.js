@@ -66,10 +66,8 @@ export async function editTransaction(editedTransaction) {
     throw new Error("Transaction could not be edited");
   }
 
-  // Get the inserted transaction ID (assuming there's an ID column)
   const insertedTransactionId = data[0].id;
 
-  // Perform a separate query to fetch the inserted transaction with category name
   const { data: transactionWithCategory, error: fetchError } = await supabase
     .from("transactions")
     .select(`*, categories (id, name)`)
