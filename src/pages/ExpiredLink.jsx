@@ -7,7 +7,7 @@ function ExpiredLink({ code, desc }) {
       <div className="max-w-[1700px] flex justify-center items-center h-[70px]">
         <img
           alt="image"
-          src="../../../public/logo-final-200h.png"
+          src="/logo-final-200h.png"
           className="w-[130px] h-[64px] self-start object-cover"
         />
       </div>

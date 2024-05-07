@@ -16,8 +16,7 @@ function Home() {
     >
       <div className="max-w-[1700px] flex justify-center items-center h-[70px]">
         <img
-          alt="image"
-          // src="../../../public/logo-final-200h.png"
+          alt="Logo"
           src="/logo-final-200h.png"
           className="w-[130px] h-[64px] self-start object-cover"
         />
@@ -35,8 +34,7 @@ function Home() {
         </div>
         <div>
           <img
-            alt="image"
-            // src="../../../public/mockuper-1000w.png"
+            alt="Logo"
             src="/mockuper-1000w.png"
             className="w-[997px] h-[464px] object-cover"
           />
