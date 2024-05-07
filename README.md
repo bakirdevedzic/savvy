@@ -1,6 +1,7 @@
 # Savvy - Budget Tracking App
 
 Savvy is a modern financial planning tracking service designed to help users manage their finances more effectively.
+**LIVE**: [text](https://savvy-budget-tracking.netlify.app/)
 
 ## Features
 
